@@ -1,0 +1,41 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
+
+public class Phone : MonoBehaviour
+{
+    public GameObject back;
+    public GameObject phoneBack;
+    public GameObject homeScreen;
+    public GameObject app1;
+    public GameObject app2;
+    public GameObject app3;
+    public GameObject app4;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (phoneBack.activeInHierarchy && !app1.activeInHierarchy
+            && !app2.activeInHierarchy && !app3.activeInHierarchy && !app4.activeInHierarchy)
+        {
+            homeScreen.SetActive(true);
+        }
+        if (!phoneBack.activeInHierarchy)
+        {
+            // back.SetActive(false);
+            homeScreen.SetActive(false);
+            app1.SetActive(false);
+            app2.SetActive(false);
+            app3.SetActive(false);
+            app4.SetActive(false);
+        }
+
+    }
+}
