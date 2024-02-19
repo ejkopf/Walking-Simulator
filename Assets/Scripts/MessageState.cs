@@ -23,7 +23,6 @@ public class MessageState : MonoBehaviour
         {
             messagePlus.SetActive(false);
             response.SetActive(true);
-            Debug.Log("RAHHH");
         } else if (!option.activeInHierarchy)
         {
             messagePlus.SetActive(true);
@@ -31,7 +30,6 @@ public class MessageState : MonoBehaviour
         if (screen.activeInHierarchy && response.activeInHierarchy)
         {
             respondable = false;
-            Debug.Log("RAHHH");
         }
     }
 }

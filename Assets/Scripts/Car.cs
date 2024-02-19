@@ -20,7 +20,7 @@ public class Car : MonoBehaviour
         car.transform.position = new Vector3(car.transform.position.x, car.transform.position.y, car.transform.position.z + 0.15f);
         if (car.transform.position.z > maincamera.transform.position.z + 18f)
         {
-            Debug.Log(car.transform.position.z + ", " + maincamera.transform.position.z);
+            // Debug.Log(car.transform.position.z + ", " + maincamera.transform.position.z);
             Color tempcolor = car.GetComponent<MeshRenderer>().material.color;
             tempcolor.a -= 0.0075f;
             car.GetComponent<MeshRenderer>().material.color = tempcolor;
