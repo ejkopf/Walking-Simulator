@@ -30,6 +30,7 @@ public class Tutorial : MonoBehaviour
     private bool donewith3rdinstruction;
     private bool donewith4thinstruction;
     private bool done5;
+    private bool done6;
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +54,7 @@ public class Tutorial : MonoBehaviour
         donewith3rdinstruction = false;
         donewith4thinstruction = false;
         done5 = false;
+        done6 = false;
 
         timesincedone = 0f;
         initialposition = walkbutton.transform.position.z;
@@ -196,22 +198,27 @@ public class Tutorial : MonoBehaviour
             done5 = true;
         }
 
-        if (response.activeInHierarchy && donewith2ndinstruction)
+        if (response.activeInHierarchy && done5)
         {
             homeButtonClick.SetActive(true);
+            done6 = true;
             // backButton.SetActive(true);
 
-            if (Time.time - time < 2f)
+            if (Time.time - time < 20f)
             {
                 // Debug.Log(Time.time - time + "< 20f");
                 ColorChange(tutorialtext, -0.05f);
             }
         }
 
+        if ((done6 && homeScreen.activeInHierarchy) || (done6 && walkbutton.activeInHierarchy)) {
+            tutorialTextContainer.SetActive(false);
+        }
+
         if (Time.time - time > 20f)
         {
             float g = Time.time - time;
-            Debug.Log(g + "< 20f");
+            // Debug.Log(g + "< 20f");
             tutorialTextContainer.SetActive(false);
         }
 

@@ -19,6 +19,11 @@ public class Phone : MonoBehaviour
     public GameObject app9;
     public GameObject app10;
     public GameObject app11;
+    public GameObject app12;
+    public GameObject app13;
+    public GameObject app14;
+    public GameObject app15;
+    public GameObject app16;
 
     // Start is called before the first frame update
     void Start()
@@ -32,7 +37,9 @@ public class Phone : MonoBehaviour
         if (phoneBack.activeInHierarchy && !app1.activeInHierarchy
             && !app2.activeInHierarchy && !app3.activeInHierarchy && !app4.activeInHierarchy && !app5.activeInHierarchy
             && !app6.activeInHierarchy && !app8.activeInHierarchy && !app7.activeInHierarchy && !app9.activeInHierarchy
-            && !app10.activeInHierarchy && !app11.activeInHierarchy)
+            && !app10.activeInHierarchy && !app11.activeInHierarchy && !app12.activeInHierarchy && !app13.activeInHierarchy
+            && !app14.activeInHierarchy && !app15.activeInHierarchy
+            && !app16.activeInHierarchy)
         {
             homeScreen.SetActive(true);
         }
@@ -51,6 +58,11 @@ public class Phone : MonoBehaviour
             app9.SetActive(false);
             app10.SetActive(false);
             app11.SetActive(false);
+            app12.SetActive(false);
+            app13.SetActive(false);
+            app14.SetActive(false);
+            app15.SetActive(false);
+            app16.SetActive(false);
         }
 
     }

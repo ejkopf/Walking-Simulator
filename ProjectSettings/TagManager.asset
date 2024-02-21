@@ -9,6 +9,7 @@ TagManager:
   - Messages
   - PhoneFrame
   - Back
+  - Res
   layers:
   - Default
   - TransparentFX
