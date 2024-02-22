@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using cse481.logging;
 
 public class HomeButton : MonoBehaviour
 {
@@ -19,16 +20,21 @@ public class HomeButton : MonoBehaviour
     public GameObject app9;
     public GameObject app10;
     public GameObject app11;
+<<<<<<< Updated upstream
     public GameObject app12;
     public GameObject app13;
     public GameObject app14;
     public GameObject app15;
     public GameObject app16;
+=======
+    private CapstoneLogger logger;
+>>>>>>> Stashed changes
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        CapstoneLogger logger = new CapstoneLogger(20240109, "walkingsim", "860d0f1dd48e31e2fb5898f5e1cb101d", 1);
+        this.logger = logger;
     }
 
     // Update is called once per frame
@@ -67,6 +73,7 @@ public class HomeButton : MonoBehaviour
 
     void OnMouseDown()
     {
+        logger.LogActionWithNoLevel(1, "home button");
         homeScreen.SetActive(true);
         app1.SetActive(false);
         app2.SetActive(false);

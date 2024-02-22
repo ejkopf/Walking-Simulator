@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using cse481.logging;
 
 public class Tutorial : MonoBehaviour
 {
@@ -31,6 +32,8 @@ public class Tutorial : MonoBehaviour
     private bool donewith4thinstruction;
     private bool done5;
     private bool done6;
+
+    public static CapstoneLogger LOGGER;
 
     // Start is called before the first frame update
     void Start()
@@ -64,6 +67,16 @@ public class Tutorial : MonoBehaviour
         {
             child.gameObject.SetActive(false);
         }
+
+        CapstoneLogger logger = new CapstoneLogger(20240109, "walkingsim", "860d0f1dd48e31e2fb5898f5e1cb101d", 1);
+        string userID = logger.GetSavedUserId();
+        if (userID == null)
+        {
+            userID = logger.GenerateUuid();
+            logger.SetSavedUserId(userID);
+        }
+        logger.StartNewSession(userID);
+        LOGGER = logger;
     }
 
     // Update is called once per frame

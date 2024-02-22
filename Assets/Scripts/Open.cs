@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using cse481.logging;
 
 public class Open : MonoBehaviour
 {
     public GameObject current;
     public GameObject messages;
+    private CapstoneLogger logger;
 
     // Start is called before the first frame update
     void Start()
     {
         current.SetActive(false);
+        CapstoneLogger logger = new CapstoneLogger(20240109, "walkingsim", "860d0f1dd48e31e2fb5898f5e1cb101d", 1);
+        this.logger = logger;
     }
 
     // Update is called once per frame
@@ -20,6 +24,8 @@ public class Open : MonoBehaviour
 
     void OnMouseDown()
     {
+        logger.LogActionWithNoLevel(4, "Open");
+        logger.LogLevelStart(0, "Phone");
         Debug.Log("Click!" + transform.gameObject.tag);
         // Debug.Log(screenToOpen.tag);
         current.SetActive(false);

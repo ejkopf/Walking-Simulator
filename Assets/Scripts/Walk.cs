@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using cse481.logging;
 
 public class Walk : MonoBehaviour
 {
@@ -18,10 +19,13 @@ public class Walk : MonoBehaviour
     public Text steps;
 
     private float stepcount;
+
+    private CapstoneLogger logger;
     // Start is called before the first frame update
     void Start()
     {
-
+        CapstoneLogger logger = new CapstoneLogger(20240109, "walkingsim", "860d0f1dd48e31e2fb5898f5e1cb101d", 1);
+        this.logger = logger;
     }
 
     // Update is called once per frame
@@ -32,6 +36,7 @@ public class Walk : MonoBehaviour
 
     void OnMouseDown()
     {
+        logger.LogActionWithNoLevel(0, "walk");
         stepcount++;
         UpdatePosition(phone);
         UpdatePosition(maincamera);
