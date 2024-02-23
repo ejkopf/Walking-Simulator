@@ -27,8 +27,8 @@ public class Back : MonoBehaviour
 
     void OnMouseDown()
     {
-        logger.LogActionWithNoLevel(3, "back");
-        logger.LogLevelEnd("Phone is put away");
+        // logger.LogActionWithNoLevel(3, "back");
+        // logger.LogLevelEnd("Phone is put away");
         Debug.Log("Click!" + transform.gameObject.tag);
         // Debug.Log(screenToOpen.tag);
         currentScreen.SetActive(false);

@@ -20,15 +20,12 @@ public class HomeButton : MonoBehaviour
     public GameObject app9;
     public GameObject app10;
     public GameObject app11;
-<<<<<<< Updated upstream
     public GameObject app12;
     public GameObject app13;
     public GameObject app14;
     public GameObject app15;
     public GameObject app16;
-=======
     private CapstoneLogger logger;
->>>>>>> Stashed changes
 
     // Start is called before the first frame update
     void Start()
