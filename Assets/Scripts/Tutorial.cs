@@ -85,7 +85,7 @@ public class Tutorial : MonoBehaviour
         // fade in walk instruction
         if (Time.time > 2f && walkbutton.activeInHierarchy && !donewith1stinstruction) 
         {
-            ColorChange(tutorialtext, 0.05f);
+            ColorChange(tutorialtext, 0.05f); 
         }
 
         // notification
@@ -115,7 +115,7 @@ public class Tutorial : MonoBehaviour
         // opened phone
         if (homeScreen.activeInHierarchy && !donewith3rdinstruction)
         {
-            //backButton.SetActive(false); // checked
+            // backButton.SetActive(false); // checked
 
             if (!donewith2ndinstruction)
             {
@@ -129,7 +129,7 @@ public class Tutorial : MonoBehaviour
             ColorChange(tutorialtext, 0.05f);
         } else if (!walkbutton.activeInHierarchy)
         {
-            //backButton.SetActive(true); // checked
+            // backButton.SetActive(true); // checked
         }
 
         // opened messages

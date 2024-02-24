@@ -12,7 +12,10 @@ public class Open : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        current.SetActive(false);
+        if (current.transform.tag != "Photos")
+        {
+            current.SetActive(false);
+        }
         CapstoneLogger logger = new CapstoneLogger(20240109, "walkingsim", "860d0f1dd48e31e2fb5898f5e1cb101d", 1);
         this.logger = logger;
     }
@@ -24,7 +27,7 @@ public class Open : MonoBehaviour
 
     void OnMouseDown()
     {
-        logger.LogActionWithNoLevel(4, "Open");
+        logger.LogActionWithNoLevel(4, transform.gameObject.tag);
         logger.LogLevelStart(0, "Phone");
         Debug.Log("Click!" + transform.gameObject.tag);
         // Debug.Log(screenToOpen.tag);

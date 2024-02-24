@@ -10,6 +10,8 @@ TagManager:
   - PhoneFrame
   - Back
   - Res
+  - Notes
+  - Photos
   layers:
   - Default
   - TransparentFX
