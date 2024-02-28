@@ -9,20 +9,20 @@ public class Back : MonoBehaviour
     public GameObject current2;
     public GameObject screenToOpen;
     public GameObject screenToOpen2;
-    private CapstoneLogger logger;
+
+    private CapstoneLogger logger = new CapstoneLogger(20240109, "walkingsim", "860d0f1dd48e31e2fb5898f5e1cb101d", 1);
 
     // Start is called before the first frame update
     void Start()
     {
+        
         currentScreen.SetActive(false);
         current2.SetActive(false);
-        CapstoneLogger logger = new CapstoneLogger(20240109, "walkingsim", "860d0f1dd48e31e2fb5898f5e1cb101d", 1);
-        this.logger = logger;
     }
 
     // Update is called once per frame
     void Update()
-    {
+    {    
     }
 
     void OnMouseDown()
