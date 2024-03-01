@@ -27,6 +27,7 @@ public class Phone : MonoBehaviour
     public GameObject small;
     public GameObject enlarged;
     public GameObject app17;
+    public GameObject jay;
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +43,7 @@ public class Phone : MonoBehaviour
             && !app6.activeInHierarchy && !app8.activeInHierarchy && !app7.activeInHierarchy && !app9.activeInHierarchy
             && !app10.activeInHierarchy && !app11.activeInHierarchy && !app12.activeInHierarchy && !app13.activeInHierarchy
             && !app14.activeInHierarchy && !app15.activeInHierarchy
-            && !app16.activeInHierarchy && !app17.activeInHierarchy)
+            && !app16.activeInHierarchy && !app17.activeInHierarchy && !jay.activeInHierarchy)
         {
             homeScreen.SetActive(true);
         }
@@ -72,6 +73,7 @@ public class Phone : MonoBehaviour
             }
             small.SetActive(true);
             app17.SetActive(false);
+            jay.SetActive(false);
         }
 
     }

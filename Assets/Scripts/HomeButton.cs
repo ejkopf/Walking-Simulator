@@ -28,6 +28,7 @@ public class HomeButton : MonoBehaviour
     public GameObject app17;
     public GameObject small;
     public GameObject enlarged;
+    public GameObject jay;
     private CapstoneLogger logger;
 
     // Start is called before the first frame update
@@ -44,7 +45,7 @@ public class HomeButton : MonoBehaviour
             && !app4.activeInHierarchy && !app5.activeInHierarchy && !app6.activeInHierarchy && !app8.activeInHierarchy
             && !app7.activeInHierarchy && !app9.activeInHierarchy && !app10.activeInHierarchy && !app11.activeInHierarchy
             && !app12.activeInHierarchy && !app13.activeInHierarchy && !app14.activeInHierarchy && !app15.activeInHierarchy
-            && !app16.activeInHierarchy && !app17.activeInHierarchy) {
+            && !app16.activeInHierarchy && !app17.activeInHierarchy && !jay.activeInHierarchy) {
             homeScreen.SetActive(true);
         }
         if (!phoneBack.activeInHierarchy)
@@ -72,6 +73,7 @@ public class HomeButton : MonoBehaviour
             }
             small.SetActive(true);
             app17.SetActive(false);
+            jay.SetActive(false);
         }
 
     }
