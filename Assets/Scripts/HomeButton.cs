@@ -25,16 +25,10 @@ public class HomeButton : MonoBehaviour
     public GameObject app14;
     public GameObject app15;
     public GameObject app16;
-<<<<<<< Updated upstream
     public GameObject app17;
     public GameObject small;
     public GameObject enlarged;
     private CapstoneLogger logger;
-=======
-
-    private CapstoneLogger logger;
-
->>>>>>> Stashed changes
 
     // Start is called before the first frame update
     void Start()
@@ -84,7 +78,7 @@ public class HomeButton : MonoBehaviour
 
     void OnMouseDown()
     {
-        logger.LogActionWithNoLevel(1, "home button");
+        // logger.LogActionWithNoLevel(1, "home button");
         homeScreen.SetActive(true);
         app1.SetActive(false);
         app2.SetActive(false);

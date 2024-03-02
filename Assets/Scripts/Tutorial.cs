@@ -70,7 +70,7 @@ public class Tutorial : MonoBehaviour
 
         CapstoneLogger logger = new CapstoneLogger(20240109, "walkingsim", "860d0f1dd48e31e2fb5898f5e1cb101d", 1);
         string userID = logger.GetSavedUserId();
-        if (string.IsNullOrEmpty(userID))
+        if (userID is null || userID is "")
         {
             userID = logger.GenerateUuid();
             logger.SetSavedUserId(userID);
@@ -88,8 +88,14 @@ public class Tutorial : MonoBehaviour
             ColorChange(tutorialtext, 0.05f); 
         }
 
+        if (walkbutton.transform.position.z > initialposition + 1.5)
+        {
+            donewith1stinstruction = true;
+            ColorChange(tutorialtext, -0.05f);
+        }
+
         // notification
-        if (walkbutton.transform.position.z > initialposition + 1.5 && !donewith2ndinstruction)
+        /* if (walkbutton.transform.position.z > initialposition + 1.5 && !donewith2ndinstruction)
         {
             if (!donewith1stinstruction)
             {
@@ -110,7 +116,7 @@ public class Tutorial : MonoBehaviour
                 tutorialtext.text = " Click the \"PHONE\" button to open your PHONE.";
                 ColorChange(tutorialtext, 0.05f);
             }
-        }
+        } */
 
         // opened phone
         if (homeScreen.activeInHierarchy && !donewith3rdinstruction)

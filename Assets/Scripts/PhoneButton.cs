@@ -29,7 +29,7 @@ public class PhoneButton : MonoBehaviour // , IPointerClickHandler
 
     void OnMouseDown()
     {
-        logger.LogActionWithNoLevel(5, "phone button");
+        // logger.LogActionWithNoLevel(5, "phone button");
         Debug.Log("Click!" + transform.gameObject.tag);
         Debug.Log(back.tag);
         button1.SetActive(false);
