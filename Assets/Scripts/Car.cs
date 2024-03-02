@@ -52,7 +52,7 @@ public class Car : MonoBehaviour
                 carFar = false;
             } else if (car.transform.position.z > maincamera.transform.position.z + 33f)
             {
-                car.SetActive(false);
+                // car.SetActive(false);
             }
             if (carFar)
             {
