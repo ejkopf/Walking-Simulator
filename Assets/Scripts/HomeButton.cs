@@ -34,6 +34,13 @@ public class HomeButton : MonoBehaviour
     void Start()
     {
         CapstoneLogger logger = new CapstoneLogger(20240109, "walkingsim", "860d0f1dd48e31e2fb5898f5e1cb101d", 1);
+        string userID = logger.GetSavedUserId();
+        if (userID is null || userID is "")
+        {
+            userID = logger.GenerateUuid();
+            logger.SetSavedUserId(userID);
+        }
+        // logger.StartNewSession(userID);
         this.logger = logger;
     }
 

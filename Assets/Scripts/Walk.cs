@@ -14,6 +14,7 @@ public class Walk : MonoBehaviour
     public GameObject phoneButton;
     public GameObject back;
     public GameObject fadeToBlack;
+    public GameObject container;
 
     public Text notificationtext;
     public Text tutorialtext;
@@ -28,8 +29,15 @@ public class Walk : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        CapstoneLogger logger = new CapstoneLogger(20240109, "walkingsim", "860d0f1dd48e31e2fb5898f5e1cb101d", 1);
-        this.logger = logger;
+        logger = new CapstoneLogger(20240109, "walkingsim", "860d0f1dd48e31e2fb5898f5e1cb101d", 1);
+        string userID = logger.GetSavedUserId();
+        if (userID is null || userID is "")
+        {
+            userID = logger.GenerateUuid();
+            logger.SetSavedUserId(userID);
+        }
+        logger.StartNewSession(userID);
+        // this.logger = logger;
 
         Color tempcolor = fadeToBlack.GetComponent<MeshRenderer>().material.color;
         tempcolor.a -= tempcolor.a;
@@ -53,7 +61,7 @@ public class Walk : MonoBehaviour
         {
             fadeToBlack.SetActive(true);
             Color tempcolor = fadeToBlack.GetComponent<MeshRenderer>().material.color;
-            tempcolor.a += 0.001f;
+            tempcolor.a = 1f;
             fadeToBlack.GetComponent<MeshRenderer>().material.color = tempcolor;
 
             /* tempcolor = fadeToBlack.GetComponent<MeshRenderer>().material.color;
@@ -72,7 +80,7 @@ public class Walk : MonoBehaviour
         if (Time.time - time > 2f && end)
         {
             Color tempcolor = youDied.color;
-            tempcolor.a += 0.0005f;
+            tempcolor.a += 0.005f;
             youDied.color = tempcolor;
         }
     }
@@ -88,18 +96,19 @@ public class Walk : MonoBehaviour
         UpdatePosition(phoneButton);
         UpdatePosition(back);
         UpdatePosition(fadeToBlack);
+        UpdatePosition(container);
         
         if (stepcount >= 0)
         {
             tutorialtext.transform.position = new Vector3(tutorialtext.transform.position.x, tutorialtext.transform.position.y, tutorialtext.transform.position.z + 0.5f);
             notificationtext.transform.position = new Vector3(notificationtext.transform.position.x, notificationtext.transform.position.y, notificationtext.transform.position.z + 0.5f);
-            youDied.transform.position = new Vector3(youDied.transform.position.x, youDied.transform.position.y, youDied.transform.position.z + 0.5f);
+            // youDied.transform.position = new Vector3(youDied.transform.position.x, youDied.transform.position.y, youDied.transform.position.z + 0.5f);
         }
         else
         {
             tutorialtext.transform.position = new Vector3(tutorialtext.transform.position.x, tutorialtext.transform.position.y, tutorialtext.transform.position.z + 580f);
             notificationtext.transform.position = new Vector3(notificationtext.transform.position.x, notificationtext.transform.position.y, notificationtext.transform.position.z + 580f);
-            youDied.transform.position = new Vector3(youDied.transform.position.x, youDied.transform.position.y, youDied.transform.position.z + 580f);
+            // youDied.transform.position = new Vector3(youDied.transform.position.x, youDied.transform.position.y, youDied.transform.position.z + 580f);
         }
     }
 

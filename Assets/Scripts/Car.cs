@@ -16,6 +16,8 @@ public class Car : MonoBehaviour
 
     public GameObject maincamera;
 
+    private bool carFar;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +28,7 @@ public class Car : MonoBehaviour
         }
         initialposleft = maincamera.transform.position.x;
         initialposright = maincamera.transform.position.x;
+        carFar = false;
     }
 
     // Update is called once per frame
@@ -36,16 +39,29 @@ public class Car : MonoBehaviour
             car.transform.position = new Vector3(car.transform.position.x, car.transform.position.y, car.transform.position.z + 0.15f);
             if (car.transform.position.z > maincamera.transform.position.z + 18f)
             {
+                carFar = true;
                 // Debug.Log(car.transform.position.z + ", " + maincamera.transform.position.z);
-                Color tempcolor = car.GetComponent<MeshRenderer>().material.color;
-                tempcolor.a -= 0.0075f;
-                car.GetComponent<MeshRenderer>().material.color = tempcolor;
+                
             }
             if (car.transform.position.z > maincamera.transform.position.z + 33f && maincamera.transform.position.z < 400f)
             {
                 car.transform.position = new Vector3(car.transform.position.x, car.transform.position.y, maincamera.transform.position.z - 2f);
                 Color tempcolor = car.GetComponent<MeshRenderer>().material.color;
                 tempcolor.a = 1.0f;
+                car.GetComponent<MeshRenderer>().material.color = tempcolor;
+                carFar = false;
+            } else if (car.transform.position.z > maincamera.transform.position.z + 33f)
+            {
+                car.SetActive(false);
+            }
+            if (carFar)
+            {
+                Color tempcolor = car.GetComponent<MeshRenderer>().material.color;
+                if (tempcolor.a >= 0f)
+                {
+                    tempcolor.a -= 0.0075f;
+                }
+                
                 car.GetComponent<MeshRenderer>().material.color = tempcolor;
             }
         }

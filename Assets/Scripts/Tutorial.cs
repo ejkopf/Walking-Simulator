@@ -68,7 +68,7 @@ public class Tutorial : MonoBehaviour
             child.gameObject.SetActive(false);
         }
 
-        CapstoneLogger logger = new CapstoneLogger(20240109, "walkingsim", "860d0f1dd48e31e2fb5898f5e1cb101d", 1);
+        /* CapstoneLogger logger = new CapstoneLogger(20240109, "walkingsim", "860d0f1dd48e31e2fb5898f5e1cb101d", 1);
         string userID = logger.GetSavedUserId();
         if (userID is null || userID is "")
         {
@@ -76,6 +76,15 @@ public class Tutorial : MonoBehaviour
             logger.SetSavedUserId(userID);
         }
         logger.StartNewSession(userID);
+        LOGGER = logger; */
+        CapstoneLogger logger = new CapstoneLogger(20240109, "walkingsim", "860d0f1dd48e31e2fb5898f5e1cb101d", 1);
+        string userID = logger.GetSavedUserId();
+        if (userID is null || userID is "")
+        {
+            userID = logger.GenerateUuid();
+            logger.SetSavedUserId(userID);
+        }
+        // logger.StartNewSession(userID);
         LOGGER = logger;
     }
 
