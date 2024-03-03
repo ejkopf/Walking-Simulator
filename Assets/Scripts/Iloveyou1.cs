@@ -24,6 +24,8 @@ public class Iloveyou1 : MonoBehaviour
     public GameObject response2;
     public GameObject response1container;
     public GameObject response2container;
+    public GameObject response3container;
+    public GameObject response4container;
     public GameObject response3;
     public GameObject response4;
 
@@ -47,6 +49,11 @@ public class Iloveyou1 : MonoBehaviour
     private float curtime;
     private float done1time;
 
+    private Vector3 topSlidePos;
+    private Vector3 slidePos2;
+    private Vector3 slidePos3;
+    private Vector3 slidePos4;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,6 +68,11 @@ public class Iloveyou1 : MonoBehaviour
         notif6.SetActive(false);
 
         curtime = 0f;
+
+        topSlidePos = slide1.transform.position;
+        slidePos2 = slide2.transform.position;
+        slidePos3 = slide3.transform.position;
+        slidePos4 = slide4.transform.position;
 
         // response1.SetActive(false);
         // response2.SetActive(false);
@@ -83,6 +95,8 @@ public class Iloveyou1 : MonoBehaviour
             {
                 response1container.SetActive(true);
                 response2container.SetActive(true);
+                response3container.SetActive(true);
+                response4container.SetActive(true);
                 if (!done[0])
                 {
                     response1.SetActive(false);
@@ -127,26 +141,33 @@ public class Iloveyou1 : MonoBehaviour
                 {
                     response2.SetActive(false);
                 }
-                else
-                {
-                    done[3] = true;
-                }
+                // else
+                // {
+                //     done[3] = true;
+                // }
 
-                if (Time.time - curtime > 15f && done[3])
+                if (Time.time - curtime > 15f && response2.activeInHierarchy)
                 {
                     notif3.SetActive(true);
-                    /* (if (!done[4] && !backButton.activeInHierarchy)
+                    // done[15] = true;
+                    if (!done[4])
                     {
                         done1time = Time.time;
                         done[4] = true;
-                    } */
+                    }
                 }
 
+                if (done[4] && !backButton.activeInHierarchy)
+                {
+                    Debug.Log(done[15]);
+                    done[15] = true;
+                }
 
                 // pt 2
-                if (Time.time - done1time > 5f && done[15]) // should actually = 120f ish
+                Debug.Log(" done15? " + done[15]);
+                if (Time.time - done1time > 5f && done[15] || done[5]) // should actually = 120f ish
                 {
-                    /*if (!backButton.activeInHierarchy && !done[12])
+                    if (!backButton.activeInHierarchy && !done[12])
                     {
                         Debug.Log("done13");
                         if (!done[13])
@@ -154,14 +175,17 @@ public class Iloveyou1 : MonoBehaviour
                             done[13] = true;
                         }
                         ColorChange(notificationtext, 0.1f);
-                        UpdateSlidePos();
-                    }*/
-
-                    // used to be here
+                        UpdateSlidePos(slide3);
+                    } else
+                    {
+                        ColorChange(notificationtext, -notificationtext.color.a);
+                    }
 
                     Debug.Log("pt2");
                     notif2.SetActive(false);
+                    // Debug.Log(notif2.activeInHierarchy);
                     notif3.SetActive(false);
+                    // Debug.Log(notif3.activeInHierarchy);
                     response1container.SetActive(false);
                     response2container.SetActive(false);
 
@@ -171,29 +195,36 @@ public class Iloveyou1 : MonoBehaviour
                         done[9] = true;
                     }
 
-                    if (Time.time - done1time > 7f && done[12])
+                    if (Time.time - done1time > 7f && done[12] && notif1.activeInHierarchy)
                     {
+                        ily.text = "fuck you";
+                        notif2.SetActive(false);
+                        // Debug.Log(notif2.activeInHierarchy);
+                        notif3.SetActive(false);
+                        // Debug.Log(notif3.activeInHierarchy);
+                        response1container.SetActive(false);
+                        response2container.SetActive(false);
                         if (!done[5])
                         {
-                            ily.text = "fuck you";
                             done[5] = true;
                         }
                     }
 
-                    if (Time.time - done1time > 9f && done[12])
+                    if (Time.time - done1time > 9f && done[5])
                     {
                         if (!done[10])
                         {
+                            response3container.SetActive(true);
                             messageplus3.SetActive(true);
                             done[10] = true;
                         }
                     }
 
-                    if (!done[5] || option2.activeInHierarchy)
+                    if (!done[10] || option2.activeInHierarchy)
                     {
                         response3.SetActive(false); // what is wrong with you
                     }
-                    else
+                    if (done[10] && !messageplus3.activeInHierarchy && !option2.activeInHierarchy)
                     {
                         if (!done[7])
                         {
@@ -202,7 +233,7 @@ public class Iloveyou1 : MonoBehaviour
                         }
                     }
 
-                    if (Time.time - done1time > 2f && done[12])
+                    if (Time.time - done1time > 2f && done[12] && done[10] && done[7]) 
                     {
                         notif4.SetActive(true); // you piece of shir
                         if (!done[8])
@@ -239,9 +270,27 @@ public class Iloveyou1 : MonoBehaviour
                     {
                         if (!done[11])
                         {
+                            response4container.SetActive(true);
+                            response4.SetActive(true);
+                            response4.transform.GetChild(0).gameObject.SetActive(false);
+                            response4.transform.GetChild(1).gameObject.SetActive(false);
                             messageplus4.SetActive(true);
                             done[11] = true;
                         }
+                    }
+
+                    if (response4.transform.GetChild(0).gameObject.activeInHierarchy ||
+                    response4.transform.GetChild(1).gameObject.activeInHierarchy) {
+                        done[17] = true;
+                    }
+                    if (done[8])
+                    {
+                        response3.SetActive(true);
+                    }
+                    if (done[17])
+                    {
+                        response4container.SetActive(true);
+                        response4.SetActive(true);
                     }
                     
                 }
@@ -259,7 +308,7 @@ public class Iloveyou1 : MonoBehaviour
                 response4.SetActive(false);
             }
 
-            if (Time.time - curtime > 15f && done[3])
+            /* if (Time.time - curtime > 15f && done[3])
             {
                 Debug.Log(!done[15] + " : " + !backButton.activeInHierarchy);
                 if (!done[15] && !backButton.activeInHierarchy)
@@ -268,8 +317,8 @@ public class Iloveyou1 : MonoBehaviour
                     done1time = Time.time;
                     done[15] = true;
                 }
-            }
-            if (!backButton.activeInHierarchy && !done[12])
+            } */
+            /* if (!backButton.activeInHierarchy && !done[12])
             {
                 Debug.Log("done13");
                 if (!done[13])
@@ -278,7 +327,7 @@ public class Iloveyou1 : MonoBehaviour
                 }
                 ColorChange(notificationtext, 0.1f);
                 UpdateSlidePos();
-            }
+            } */
             if (phoneBack.activeInHierarchy && done[15] && !done[12])
             {
                 Debug.Log("done12");
@@ -295,9 +344,60 @@ public class Iloveyou1 : MonoBehaviour
         given.color = col;
     }
 
-    void UpdateSlidePos()
+    void UpdateSlidePos(GameObject slide)
     {
+        /* if (topSlidePos == slide1.transform.position)
+        {
+            slide1.transform.position = slide.transform.position;
+        }
+        else if (topSlidePos == slide2.transform.position)
+        {
+            slide2.transform.position = slide.transform.position;
+        }
+        else if (topSlidePos == slide3.transform.position)
+        {
+            slide3.transform.position = slide.transform.position;
+        }
+        else if (topSlidePos == slide4.transform.position)
+        {
+            slide4.transform.position = slide.transform.position;
+        }
+        slide.transform.position = topSlidePos; */
+
+
+        /* if (slide == slide1)
+        {
+            if (slidePos2 == slide1.transform.position)
+            {
+                
+            } else if (slidePos2 == slide2.transform.position)
+            {
+                if (slidePos3 == slide3.transform.position)
+                {
+
+                } else // (slidePos3 == slide4.transform.position)
+                {
+
+                }
+            } else if (slidePos2 == slide3.transform.position)
+            {
+
+            } else // (slidePos4 == slide3.transform.position)
+            {
+
+            }
+        } else if (slide == slide2)
+        {
+
+        } else if (slide == slide3)
+        {
+
+        } else // slide == slide4
+        {
+
+        } */
         Vector3 slide1pos = slide1.transform.position;
+
         if (slide1pos.y > slide2.transform.position.y && slide2.transform.position.y > slide3.transform.position.y) // 1 > 2 > 3
         {
             slide1.transform.position = slide2.transform.position;
@@ -315,6 +415,6 @@ public class Iloveyou1 : MonoBehaviour
             slide1.transform.position = slide3.transform.position;
             slide3.transform.position = slide2.transform.position;
             slide2.transform.position = slide1pos;
-        }
+        } 
     }
 }

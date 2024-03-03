@@ -5380,8 +5380,10 @@ MonoBehaviour:
   response2: {fileID: 496522811}
   response1container: {fileID: 1625018706}
   response2container: {fileID: 369486022}
-  response3: {fileID: 400828549}
-  response4: {fileID: 1234764264}
+  response3container: {fileID: 400828549}
+  response4container: {fileID: 1234764264}
+  response3: {fileID: 1638851284}
+  response4: {fileID: 2080393516}
   option1: {fileID: 1962319452}
   option2: {fileID: 181710328}
   messageplus2: {fileID: 643139654}
@@ -11949,7 +11951,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   current: {fileID: 1660269854}
-  messages: {fileID: 981026209}
+  messages: {fileID: 1213225997}
 --- !u!114 &568444375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13418,7 +13420,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 632832283}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45aa19fd8356048ffbd0dadd83917215, type: 3}
   m_Name: 
@@ -16597,7 +16599,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   current: {fileID: 1660269854}
-  messages: {fileID: 1213225997}
+  messages: {fileID: 981026209}
 --- !u!114 &760981110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21149,6 +21151,7 @@ MonoBehaviour:
   notificationtext: {fileID: 1322605364}
   tutorialtext: {fileID: 37961424}
   steps: {fileID: 1028855039}
+  seconds: 0
 --- !u!1 &929292576
 GameObject:
   m_ObjectHideFlags: 0
@@ -35609,7 +35612,7 @@ GameObject:
   - component: {fileID: 1638851285}
   m_Layer: 5
   m_Name: Response1
-  m_TagString: Untagged
+  m_TagString: res1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43416,7 +43419,6 @@ GameObject:
   - component: {fileID: 2053004276}
   - component: {fileID: 2053004275}
   - component: {fileID: 2053004274}
-  - component: {fileID: 2053004273}
   - component: {fileID: 2053004272}
   m_Layer: 0
   m_Name: Click
@@ -43456,20 +43458,6 @@ MonoBehaviour:
   options: {fileID: 2048806080}
   opt1: {fileID: 1430719500}
   opt2: {fileID: 1564833307}
---- !u!114 &2053004273
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2053004270}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45aa19fd8356048ffbd0dadd83917215, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  current: {fileID: 852634844}
-  messages: {fileID: 2048806080}
 --- !u!114 &2053004274
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -18,6 +18,8 @@ public class Walk : MonoBehaviour
     public Text tutorialtext;
     public Text steps;
 
+    // public Text steps;
+
     private float stepcount;
     public float seconds;
 
@@ -53,8 +55,8 @@ public class Walk : MonoBehaviour
             UpdatePosition(clouds);
             UpdatePosition(phoneButton);
             UpdatePosition(back);
-            tutorialtext.transform.position = new Vector3(tutorialtext.transform.position.x, tutorialtext.transform.position.y, tutorialtext.transform.position.z + 0.5f);
-            notificationtext.transform.position = new Vector3(notificationtext.transform.position.x, notificationtext.transform.position.y, notificationtext.transform.position.z + 0.5f);
+            tutorialtext.transform.position = new Vector3(tutorialtext.transform.position.x, tutorialtext.transform.position.y, tutorialtext.transform.position.z + 0.01f);
+            notificationtext.transform.position = new Vector3(notificationtext.transform.position.x, notificationtext.transform.position.y, notificationtext.transform.position.z + 0.01f);
         }
     }
 
