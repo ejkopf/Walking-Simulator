@@ -21,6 +21,8 @@ public class Walk : MonoBehaviour
     public Text youDied;
     public Text steps;
 
+    // public Text steps;
+
     private float stepcount;
     private bool end;
     private float time;

@@ -34,7 +34,7 @@ public class Open : MonoBehaviour
 
     void OnMouseDown()
     {
-        logger.LogActionWithNoLevel(4, transform.gameObject.tag);
+        // logger.LogActionWithNoLevel(4, transform.gameObject.tag);
         // logger.LogLevelStart(0, "Phone");
         Debug.Log("Click!" + transform.gameObject.tag);
         // Debug.Log(screenToOpen.tag);

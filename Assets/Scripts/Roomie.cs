@@ -89,7 +89,7 @@ public class Roomie : MonoBehaviour
         }
         if (tutorialcomplete)
         {
-            Debug.Log("startRoomie");
+            // Debug.Log("startRoomie");
             if (!donewith1stinstruction)
             {
                 
@@ -107,12 +107,12 @@ public class Roomie : MonoBehaviour
                     // Debug.Log(slide1pos.y + " > " + slide2.transform.position.y + " && " + slide2.transform.position.z + " < " + slide3.transform.position.z);
                     if (slide1pos.y > slide2.transform.position.y && slide2.transform.position.y > slide3.transform.position.y)
                     {
-                        Debug.Log("yep");
+                        // Debug.Log("yep");
                         slide1.transform.position = slide2.transform.position;
                         slide2.transform.position = slide1pos;
                     } else // slide3 > slide 1 > slide 2
                     {
-                        Debug.Log("nope");
+                        // Debug.Log("nope");
                         slide1.transform.position = slide2.transform.position;
                         slide2.transform.position = slide3.transform.position;
                         slide3.transform.position = slide1pos;
@@ -168,13 +168,13 @@ public class Roomie : MonoBehaviour
                         Vector3 slide1pos = slide1.transform.position;
                         if (slide1pos.y > slide2.transform.position.y && slide2.transform.position.y > slide3.transform.position.y)
                         {
-                            Debug.Log("yep");
+                            // Debug.Log("yep");
                             slide1.transform.position = slide2.transform.position;
                             slide2.transform.position = slide1pos;
                         }
                         else // slide3 > slide 1 > slide 2
                         {
-                            Debug.Log("nope");
+                            // Debug.Log("nope");
                             slide1.transform.position = slide2.transform.position;
                             slide2.transform.position = slide3.transform.position;
                             slide3.transform.position = slide1pos;
@@ -213,7 +213,7 @@ public class Roomie : MonoBehaviour
 
             if (options.activeInHierarchy && donewith3rdinstruction)
             {
-                Debug.Log("done4");
+                // Debug.Log("done4");
                 if (!donewith4thinstruction)
                 {
                     donewith4thinstruction = true;
@@ -224,7 +224,7 @@ public class Roomie : MonoBehaviour
             {
                 if (!done5)
                 {
-                    Debug.Log("done5");
+                    // Debug.Log("done5");
                     done5 = true;
                     timetutorialend = Time.time;
                 }
@@ -248,11 +248,11 @@ public class Roomie : MonoBehaviour
         // pt 2
         if (Time.time - timetutorialend > 0f && done5)
         {
-            Debug.Log("start p2");
-            Debug.Log(done7 + " , " + !backButton.activeInHierarchy);
+            // Debug.Log("start p2");
+            // Debug.Log(done7 + " , " + !backButton.activeInHierarchy);
             if (!backButton.activeInHierarchy && !done7)
             {
-                Debug.Log("done6");
+                // Debug.Log("done6");
                 if (!done6)
                 {
                     done6 = true;
@@ -268,7 +268,7 @@ public class Roomie : MonoBehaviour
 
             if (roomieStart.activeInHierarchy && done7)
             {
-                Debug.Log("roomiestrt");
+                // Debug.Log("roomiestrt");
                 if (!bools[0])
                 {
                     bools[0] = true;

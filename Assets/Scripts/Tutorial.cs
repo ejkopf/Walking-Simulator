@@ -111,7 +111,7 @@ public class Tutorial : MonoBehaviour
                 donewith1stinstruction = true;
                 timesincedone = Time.time;
             }
-            Debug.Log(Time.time + "," + timesincedone);
+            // Debug.Log(Time.time + "," + timesincedone);
             if (Time.time - timesincedone < 3f)
             {
                 ColorChange(tutorialtext, -0.05f);

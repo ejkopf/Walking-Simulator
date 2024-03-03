@@ -41,7 +41,7 @@ public class MessageState : MonoBehaviour
         } */
         if (!respondswitch)
         {
-            if (!respondable && screen.activeInHierarchy)
+            if ((!respondable && screen.activeInHierarchy)) // || (!respondable && screen.tag == "res1" && response1.tag == "res1")
             {
                 messagePlus.SetActive(false);
                 response.SetActive(true);
@@ -56,6 +56,7 @@ public class MessageState : MonoBehaviour
             }
             if (screen.activeInHierarchy && response1.activeInHierarchy)
             {
+                // Debug.Log("screen: " + screen.tag + "response: " + response1.tag);
                 response = response1;
                 respondable = false;
             }
