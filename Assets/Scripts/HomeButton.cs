@@ -25,21 +25,22 @@ public class HomeButton : MonoBehaviour
     public GameObject app14;
     public GameObject app15;
     public GameObject app16;
-<<<<<<< Updated upstream
     public GameObject app17;
     public GameObject small;
     public GameObject enlarged;
     private CapstoneLogger logger;
-=======
-
-    private CapstoneLogger logger;
-
->>>>>>> Stashed changes
 
     // Start is called before the first frame update
     void Start()
     {
         CapstoneLogger logger = new CapstoneLogger(20240109, "walkingsim", "860d0f1dd48e31e2fb5898f5e1cb101d", 1);
+        string userID = logger.GetSavedUserId();
+        if (userID is null || userID is "")
+        {
+            userID = logger.GenerateUuid();
+            logger.SetSavedUserId(userID);
+        }
+        // logger.StartNewSession(userID);
         this.logger = logger;
     }
 
@@ -84,7 +85,7 @@ public class HomeButton : MonoBehaviour
 
     void OnMouseDown()
     {
-        logger.LogActionWithNoLevel(1, "home button");
+        // logger.LogActionWithNoLevel(1, "home button");
         homeScreen.SetActive(true);
         app1.SetActive(false);
         app2.SetActive(false);
