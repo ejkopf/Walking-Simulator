@@ -44,6 +44,8 @@ public class Jay : MonoBehaviour {
     public GameObject bad;
     public GameObject question;
     public GameObject moreQuestion;
+    // fifth
+    public GameObject manyQuestion;
 
     // options
     public GameObject responseContainer;
@@ -58,6 +60,8 @@ public class Jay : MonoBehaviour {
     public GameObject screen1;
     public GameObject screen2;
     public GameObject screen3;
+    public GameObject screen4;
+    public GameObject screen5;
 
     // progression
     private bool firstJay;
@@ -96,6 +100,7 @@ public class Jay : MonoBehaviour {
         deactivateScreenTwo();
         deactivateScreenThree();
         deactivateScreenFour();
+        deactivateScreenFive();
 
         firstJay = false;
         firstPlayer = false;
@@ -119,12 +124,15 @@ public class Jay : MonoBehaviour {
             screen1.SetActive(true);
             screen2.SetActive(true);
             screen3.SetActive(true);
+            screen4.SetActive(true);
+            screen5.SetActive(true);
             serveCurrentScreen();
         } else {
             deactivateScreenOne();
             deactivateScreenTwo();
             deactivateScreenThree();
             deactivateScreenFour();
+            deactivateScreenFive();
         }
     }
 
@@ -137,9 +145,12 @@ public class Jay : MonoBehaviour {
         } else if (fourthJay && !fifthPlayer) {
             deactivateScreenTwo();
             handleScreenThreeState();
-        } else if (fifthPlayer) {
+        } else if (fifthPlayer && !seventhJay) {
             deactivateScreenThree();
             handleScreenFourState();
+        } else if (seventhJay) {
+            deactivateScreenFour();
+            handleScreenFiveState();
         } else {
             // ... 
         }
@@ -267,6 +278,10 @@ public class Jay : MonoBehaviour {
         responseContainerSix.SetActive(false);
     }
 
+    void deactivateScreenFive() {
+        manyQuestion.SetActive(false);
+    }
+
     void handleScreenTwoState() {
         if (secondPlayer && !thirdJay) {
             if (!entryPoint) {
@@ -377,8 +392,20 @@ public class Jay : MonoBehaviour {
             if ((Time.time - playerResponseTime) > 65f) {
                 moreQuestion.SetActive(true);
             }
+            if ((Time.time - playerResponseTime) > 100f) {
+                seventhJay = true;
+                entryPoint = false;
+            }
         } else {
             deactivateScreenFour();
+        }
+    }
+
+    void handleScreenFiveState() {
+        if (seventhJay) {
+            manyQuestion.SetActive(true);
+        } else {
+            deactivateScreenFive();
         }
     }
 }
