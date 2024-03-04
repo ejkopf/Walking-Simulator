@@ -89,7 +89,7 @@ public class Roomie : MonoBehaviour
         }
         if (tutorialcomplete)
         {
-            Debug.Log("startRoomie");
+            // Debug.Log("startRoomie");
             if (!donewith1stinstruction)
             {
                 

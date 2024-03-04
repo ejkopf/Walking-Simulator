@@ -4,234 +4,234 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System;
-using System.Threading;
-
-public class Jay : MonoBehaviour
-{
-    public Text notificationtext;
-
-    public GameObject start;
-
-    // messages
-    public GameObject dawg;
-    public GameObject alright;
-
-    // 1st responses
-    public GameObject notReally;
-    public GameObject fine;
-
+public class Jay : MonoBehaviour {
+    private float curTime;
+    private float time;
+    private float playerResponseTime;
+    private float screenTwoInit;
+    // Did the player reply to Jay's most recent message?
+    // Topper and backdrop -- should always be active if Jay window is open
+    // first
+    public GameObject heydawg;
+    public GameObject doinalright;
+    // second
+    public GameObject vulnerable;
+    public GameObject whatsUp;
     public GameObject glad;
     public GameObject seriously;
     public GameObject life;
-    public GameObject vulnerable;
-    public GameObject whatsUp;
-
-    // second responses
-    public GameObject actuallyFine;
-    public GameObject something;
-
+    // third
     public GameObject specifically;
     public GameObject saySo;
 
-    // slides
-    public GameObject slide1;
-    public GameObject slide2;
+    // responses for screen2;
+    // first
+    public GameObject notreally;
+    public GameObject fine;
+    // second
+    public GameObject something;
+    public GameObject actually;
 
     // options
-    public GameObject noResp;
-    public GameObject fineResp;
+    public GameObject responseContainer;
+    public GameObject responseContainerTwo;
+    // first
+    public GameObject optFine;
+    public GameObject optNotFine;
+    // second
+    public GameObject optSomething;
+    public GameObject optActually;
 
-    public GameObject fineRespTwo;
-    public GameObject somethingResp;
+    public GameObject startScreen;
+    public GameObject screen1;
+    public GameObject screen2;
 
-    public GameObject message;
-    public GameObject messageTwo;
-
-    public GameObject backButton;
-    public GameObject phoneBack;
-
-    private bool[] done;
-    private bool tutorialcomplete;
-    private float curtime;
-    private float done1time;
-    private float startTime;
-
-    // response vibes
+    // progression
+    private bool firstJay;
+    private bool firstPlayer;
     private bool saidFine;
-    private bool saidSomething;
+    private bool saidNotReally;
+    private bool secondJay;
+    private bool secondPlayer;
+    private bool thirdJay;
+    private bool entryPoint;
+    // endstate
     private bool deadEnd;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        done = new bool[100];
-        curtime = Time.time;
+    void Start () {
+        screenTwoInit = 0f;
+        playerResponseTime = 0f;
+        time = 1f;
 
-        start.SetActive(false);
+        curTime = Time.time;
 
-        // slide 1
-        dawg.SetActive(false);
-        alright.SetActive(false);
+        startScreen.SetActive(false);
+        screen1.SetActive(false);
+        screen2.SetActive(false);
 
-        // 1st responses
-        notReally.SetActive(false);
-        fine.SetActive(false);
+        deactivateScreenOne();
+        deactivateScreenTwo();
 
-        glad.SetActive(false);
-        seriously.SetActive(false);
-        life.SetActive(false);
-        vulnerable.SetActive(false);
-        whatsUp.SetActive(false);
-
-        // slide 2
-        specifically.SetActive(false);
-        saySo.SetActive(false);
-
-        // 2nd responses
-        actuallyFine.SetActive(false);
-        something.SetActive(false);
-
-        // slide 1
-        noResp.SetActive(false);
-        fineResp.SetActive(false);
-
-        // slide 2
-        fineRespTwo.SetActive(false);
-        somethingResp.SetActive(false);
-
-        message.SetActive(false);
-        messageTwo.SetActive(false);
-
-        // slides
-        slide1.SetActive(false);
-        slide2.SetActive(false);
+        firstJay = false;
+        firstPlayer = false;
+        secondJay = false;
+        secondPlayer = false;
+        saidFine = false;
+        saidNotReally = false;
+        thirdJay = false;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Time.time - curtime < 5f && start.activeInHierarchy) {
-            start.SetActive(true);
-        } else if (start.activeInHierarchy && Time.time - curtime >= 5f && !done[2]) {
-            slide1.SetActive(true);
-            dawg.SetActive(true);
-            if (dawg.activeInHierarchy && slide1.activeInHierarchy && Time.time - curtime > 6f) {
-                alright.SetActive(true);
-                message.SetActive(true);
-                // options
-                if ((fine.activeInHierarchy || notReally.activeInHierarchy) && !done[1]) {
-                    startTime = Time.time;
-                    done[1] = true;
-                }
-
-                if (notReally.activeInHierarchy) {
-                    saidFine = true;
-                    message.SetActive(false);
-
-                    if (Time.time - curtime > startTime + 10f) {
-                        vulnerable.SetActive(true);
-                    }
-                    if (Time.time - curtime > (startTime + 11f)) {
-                        whatsUp.SetActive(true);
-                        messageTwo.SetActive(true);
-                        slide2.SetActive(true);
-                    }
-                } else if (fine.activeInHierarchy) {
-                    saidFine = false;
-                    message.SetActive(false);
-
-                    if (Time.time - curtime > startTime + 10f) {
-                        glad.SetActive(true);
-                    }
-                    if (Time.time - curtime > (startTime + 11f)) {
-                        seriously.SetActive(true);
-                    }
-                    if (Time.time - curtime > (startTime + 12f)) {
-                        life.SetActive(true);
-                        messageTwo.SetActive(true);
-                        slide2.SetActive(true);
-                    }
-                }
-            }
-            if ((something.activeInHierarchy || actuallyFine.activeInHierarchy) && !done[2]) {
-                    disableFirstSlide();
-                    startTime = Time.time;
-                    done[2] = true;
-                    slide2.SetActive(true);
-                    messageTwo.SetActive(false);
-            }
-        } else if (slide2.activeInHierarchy && !done[3]) {
-            if (something.activeInHierarchy) {
-                deadEnd = false;
-                disableFirstSlide();
-                slide2.SetActive(true);
-                specifically.SetActive(true);
-                saySo.SetActive(false);
-
-                if (Time.time - curtime > (startTime + 15f)) {
-                    specifically.SetActive(true);
-                    done[3] = true;
-                }
-            } else if (actuallyFine.activeInHierarchy) {
-                deadEnd = true;
-                disableFirstSlide();
-                slide2.SetActive(false);
-                saySo.SetActive(true);
-
-                if (Time.time - curtime > (startTime + 15f)) {
-                    saySo.SetActive(true);
-                    done[3] = true;
-                }
-            }
+    void Update () {
+        if (startScreen.activeInHierarchy) {
+            screen1.SetActive(true);
+            screen2.SetActive(true);
+            serveCurrentScreen();
         } else {
-            disableFirstSlide();
-            disableSecondSlide();
-            // slide 2
-            specifically.SetActive(false);
-            saySo.SetActive(false);
-
-            // 2nd responses
-            actuallyFine.SetActive(false);
-            something.SetActive(false);
-
-            // slide 1
-            noResp.SetActive(false);
-            fineResp.SetActive(false);
-
-            // slide 2
-            fineRespTwo.SetActive(false);
-            somethingResp.SetActive(false);
-
-            message.SetActive(false);
-            messageTwo.SetActive(false);
+            deactivateScreenOne();
+            deactivateScreenTwo();
         }
     }
 
-    void disableFirstSlide() {
-        start.SetActive(false);
-        dawg.SetActive(false);
-        alright.SetActive(false);
-        notReally.SetActive(false);
+    void serveCurrentScreen() {
+        if (!secondPlayer) {
+            handleScreenOneState();
+        } else if (secondPlayer /* && !nthPlayer */) {
+            deactivateScreenOne();
+            handleScreenTwoState();
+        } else {
+            // ... 
+        }
+    }
+
+    void handleScreenOneState() {
+        if (!firstJay) {
+            if ((Time.time - curTime) > time) {
+                heydawg.SetActive(true);
+                if ((Time.time - curTime) > (time + 2f)) {
+                    doinalright.SetActive(true);
+                    // 1st Jay message end
+                    firstJay = true;
+                }
+            }
+        // if jay messaged but the player hasn't responded yet
+        } else if (firstJay && !firstPlayer) {
+            responseContainer.SetActive(true);
+            heydawg.SetActive(true);
+            doinalright.SetActive(true);
+            if (notreally.activeInHierarchy || fine.activeInHierarchy) {
+                if (!firstPlayer) {
+                    firstPlayer = true;
+
+                    if (notreally.activeInHierarchy) {
+                        saidNotReally = true;
+                    } else {
+                        saidFine = true;
+                    }
+                }
+            }
+        // if the player responded to the first exchange but jay hasn't replied yet
+        } else if (firstPlayer && !secondJay) {
+            if (!entryPoint) {
+                entryPoint = true;
+                playerResponseTime = Time.time;
+            }
+            heydawg.SetActive(true);
+            doinalright.SetActive(true);
+            if (notreally.activeInHierarchy && (Time.time - playerResponseTime) > (time * 2f)) {
+                vulnerable.SetActive(true);
+                if ((Time.time - playerResponseTime) > (time * 2f + 1)) {
+                    whatsUp.SetActive(true);
+                    secondJay = true;
+                }
+            } else if (fine.activeInHierarchy && (Time.time - playerResponseTime) > (time * 2f)) {
+                glad.SetActive(true);
+                if ((Time.time - playerResponseTime) > (time * 2f + 1)) {
+                    seriously.SetActive(true);
+                    if ((Time.time - playerResponseTime) > (time * 2f + 2)) {
+                        life.SetActive(true);
+                        secondJay = true;
+                    }
+                }
+            } else if (firstPlayer && saidFine) {
+                fine.SetActive(true);
+            } else {
+                notreally.SetActive(true);
+            }
+        } else if (secondJay && !secondPlayer) {
+            heydawg.SetActive(true);
+            doinalright.SetActive(true);
+
+            if (saidFine) {
+                fine.SetActive(true);
+                glad.SetActive(true);
+                seriously.SetActive(true);
+                life.SetActive(true);
+            } else {
+                notreally.SetActive(true);
+                vulnerable.SetActive(true);
+                whatsUp.SetActive(true);
+            }
+            responseContainerTwo.SetActive(true);
+            if (something.activeInHierarchy || actually.activeInHierarchy) {
+                secondPlayer = true;
+                entryPoint = false;
+                if (actually.activeInHierarchy) {
+                    deadEnd = true;
+                }
+            }
+        } else {
+            deactivateScreenOne();
+        }
+    }
+
+    void deactivateScreenOne() {
+        heydawg.SetActive(false);
+        doinalright.SetActive(false);
+        notreally.SetActive(false);
         fine.SetActive(false);
-        noResp.SetActive(false);
-        fineResp.SetActive(false);
-        message.SetActive(false);
         glad.SetActive(false);
         seriously.SetActive(false);
         life.SetActive(false);
         vulnerable.SetActive(false);
         whatsUp.SetActive(false);
+        responseContainer.SetActive(false);
+        responseContainerTwo.SetActive(false);
+        optFine.SetActive(false);
+        optNotFine.SetActive(false);
+        optActually.SetActive(false);
+        optSomething.SetActive(false);
     }
 
-    void disableSecondSlide() {
-        saySo.SetActive(false);
+    void deactivateScreenTwo() {
+        something.SetActive(false);
+        actually.SetActive(false);
         specifically.SetActive(false);
+        saySo.SetActive(false);
     }
 
-    void ColorChange(Text given, float amount)
-    {
-        Color col = given.color;
-        col.a += amount;
-        given.color = col;
+    void handleScreenTwoState() {
+        if (secondPlayer && !thirdJay) {
+            if (!entryPoint) {
+                entryPoint = true;
+                playerResponseTime = Time.time;
+            }
+            if (something.activeInHierarchy && (Time.time - playerResponseTime) > (time * 2f)) {
+                specifically.SetActive(true);
+                thirdJay = true;
+            } else if (actually.activeInHierarchy && (Time.time - playerResponseTime) > (time * 2f)) {
+                saySo.SetActive(true);
+                thirdJay = true;
+            }
+        } else if (secondPlayer && thirdJay) {
+            if (!deadEnd) {
+                something.SetActive(true);
+                specifically.SetActive(true);
+            } else {
+                actually.SetActive(true);
+                saySo.SetActive(true);
+            }
+
+        } else {
+            deactivateScreenTwo();
+        }
     }
 }

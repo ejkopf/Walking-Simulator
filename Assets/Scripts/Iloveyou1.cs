@@ -271,7 +271,7 @@ public class Iloveyou1 : MonoBehaviour
             }
             if (!backButton.activeInHierarchy && !done[12])
             {
-                Debug.Log("done13");
+                // Debug.Log("done13");
                 if (!done[13])
                 {
                     done[13] = true;
