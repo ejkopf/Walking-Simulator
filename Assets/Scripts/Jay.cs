@@ -121,10 +121,6 @@ public class Jay : MonoBehaviour {
     }
     void Update () {
         if (startScreen.activeInHierarchy) {
-            screen1.SetActive(true);
-            screen2.SetActive(true);
-            screen3.SetActive(true);
-            // screen4.SetActive(true);
             serveCurrentScreen();
         } else {
             deactivateScreenOne();
@@ -136,11 +132,14 @@ public class Jay : MonoBehaviour {
 
     void serveCurrentScreen() {
         if (!secondPlayer) {
+            screen1.SetActive(true);
             handleScreenOneState();
         } else if (secondPlayer && !fourthPlayer) {
+            screen2.SetActive(true);
             deactivateScreenOne();
             handleScreenTwoState();
         } else if (fourthPlayer && !seventhJay) {
+            screen3.SetActive(true);
             deactivateScreenTwo();
             deactivateScreenOne();
             handleScreenThreeState();
@@ -391,6 +390,8 @@ public class Jay : MonoBehaviour {
             if ((Time.time - playerResponseTime) > 2f) {
                 question.SetActive(true);
                 messageTwo.SetActive(false);
+                deactivateScreenOne();
+                deactivateScreenTwo();
                 seventhJay = true;
                 entryPoint = false;
             }
