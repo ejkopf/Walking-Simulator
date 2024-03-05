@@ -136,15 +136,11 @@ public class Jay : MonoBehaviour {
         } else if (secondPlayer && !fourthPlayer) {
             deactivateScreenOne();
             handleScreenTwoState();
-        } else if (fourthPlayer && !fifthPlayer) {
+        } else if (fourthPlayer && !seventhJay) {
             deactivateScreenTwo();
             handleScreenThreeState();
-        } else if (fifthPlayer && !seventhJay) {
-            deactivateScreenThree();
-            // handleScreenFourState();
-        } else
-        {
-            bad.SetActive(true);
+        } else {
+            //
         }
     }
 
@@ -268,6 +264,9 @@ public class Jay : MonoBehaviour {
         question.SetActive(false);
         responseContainerFive.SetActive(false);
         responseContainerSix.SetActive(false);
+        screen1.SetActive(false);
+        screen2.SetActive(false);
+        screen3.SetActive(false);
     }
     /*
     void deactivateScreenFour() {
@@ -389,7 +388,8 @@ public class Jay : MonoBehaviour {
                 seventhJay = true;
                 entryPoint = false;
             }
-        } else {
+        }
+        else {
             deactivateScreenThree();
         }
     }
