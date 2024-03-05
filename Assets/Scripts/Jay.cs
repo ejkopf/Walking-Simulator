@@ -242,6 +242,7 @@ public class Jay : MonoBehaviour {
         actually.SetActive(false);
         responseContainer.SetActive(false);
         responseContainerTwo.SetActive(false);
+        screen1.SetActive(false);
     }
 
     void deactivateScreenTwo() {
@@ -254,6 +255,8 @@ public class Jay : MonoBehaviour {
         responseContainerFour.SetActive(false);
         isThatIt.SetActive(false);
         worried.SetActive(false);
+        screen1.SetActive(false);
+        screen2.SetActive(false);
     }
 
     void deactivateScreenThree() {
@@ -273,7 +276,7 @@ public class Jay : MonoBehaviour {
     */
     void handleScreenTwoState() {
         if (secondPlayer && !thirdJay) {
-            if (saidFine)
+            if (deadEnd)
             {
                 actuallyDup.SetActive(true);
             } else
@@ -284,32 +287,33 @@ public class Jay : MonoBehaviour {
                 entryPoint = true;
                 playerResponseTime = Time.time;
             }
-            if (something.activeInHierarchy && (Time.time - playerResponseTime) > (time * 2f)) {
+            if (somethingDup.activeInHierarchy && (Time.time - playerResponseTime) > (time * 2f)) {
                 specifically.SetActive(true);
                 thirdJay = true;
-            } else if (actually.activeInHierarchy && (Time.time - playerResponseTime) > (time * 2f)) {
+            } else if (actuallyDup.activeInHierarchy && (Time.time - playerResponseTime) > (time * 2f)) {
                 saySo.SetActive(true);
                 thirdJay = true;
             }
         } else if (thirdJay && !thirdPlayer) {
             if (!deadEnd) {
-                something.SetActive(true);
+                somethingDup.SetActive(true);
                 specifically.SetActive(true);
+                responseContainerThree.SetActive(true);
+                if (nbd.activeInHierarchy)
+                {
+                    thirdPlayer = true;
+                    entryPoint = false;
+                }
             } else {
-                actually.SetActive(true);
+                actuallyDup.SetActive(true);
                 saySo.SetActive(true);
-            }
-            responseContainerThree.SetActive(true);
-            if (nbd.activeInHierarchy) {
-                thirdPlayer = true;
-                entryPoint = false;
             }
         } else if (thirdPlayer && !fourthJay) {
             if (!entryPoint) {
                 playerResponseTime = Time.time;
                 entryPoint = true;
             }
-            something.SetActive(true);
+            somethingDup.SetActive(true);
             specifically.SetActive(true);
             if (nbd.activeInHierarchy && (Time.time - playerResponseTime) > (time * 2f)) {
                 fourthJay = true;
