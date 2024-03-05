@@ -28,6 +28,20 @@ public class Phone : MonoBehaviour
     public GameObject enlarged;
     public GameObject app17;
 
+    // Jay stuff
+    public GameObject jayStart;
+    public GameObject jayScreen1;
+    public GameObject jayScreen2;
+    public GameObject jayScreen3;
+    public GameObject jayScreen4;
+
+    public GameObject response1;
+    public GameObject response2;
+    public GameObject response3;
+    public GameObject response4;
+    public GameObject response5;
+    public GameObject response6;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,7 +56,11 @@ public class Phone : MonoBehaviour
             && !app6.activeInHierarchy && !app8.activeInHierarchy && !app7.activeInHierarchy && !app9.activeInHierarchy
             && !app10.activeInHierarchy && !app11.activeInHierarchy && !app12.activeInHierarchy && !app13.activeInHierarchy
             && !app14.activeInHierarchy && !app15.activeInHierarchy
-            && !app16.activeInHierarchy && !app17.activeInHierarchy)
+            && !app16.activeInHierarchy && !app17.activeInHierarchy
+            && !jayStart.activeInHierarchy && !jayScreen1.activeInHierarchy
+            && !jayScreen2.activeInHierarchy && !jayScreen3.activeInHierarchy && !jayScreen4.activeInHierarchy
+            && !response1.activeInHierarchy && !response2.activeInHierarchy && !response3.activeInHierarchy
+            && !response4.activeInHierarchy && !response5.activeInHierarchy && !response6.activeInHierarchy)
         {
             homeScreen.SetActive(true);
         }
@@ -72,6 +90,20 @@ public class Phone : MonoBehaviour
             }
             small.SetActive(true);
             app17.SetActive(false);
+
+            jayStart.SetActive(false);
+            jayScreen1.SetActive(false);
+            jayScreen2.SetActive(false);
+            jayScreen3.SetActive(false);
+            jayScreen4.SetActive(false);
+
+            response6.SetActive(false);
+            response5.SetActive(false);
+            response4.SetActive(false);
+            response3.SetActive(false);
+            response2.SetActive(false);
+            response1.SetActive(false);
+
         }
 
     }
