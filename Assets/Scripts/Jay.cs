@@ -53,12 +53,14 @@ public class Jay : MonoBehaviour {
     public GameObject responseContainerFive;
     public GameObject responseContainerSix;
 
+    public GameObject messageTwo;
+
     // screens
     public GameObject startScreen;
     public GameObject screen1;
     public GameObject screen2;
     public GameObject screen3;
-    public GameObject screen4;
+    // public GameObject screen4;
 
     // progression
     private bool firstJay;
@@ -93,6 +95,8 @@ public class Jay : MonoBehaviour {
         screen2.SetActive(false);
         screen3.SetActive(false);
 
+        messageTwo.SetActive(false);
+
         deactivateScreenOne();
         deactivateScreenTwo();
         deactivateScreenThree();
@@ -120,7 +124,7 @@ public class Jay : MonoBehaviour {
             screen1.SetActive(true);
             screen2.SetActive(true);
             screen3.SetActive(true);
-            screen4.SetActive(true);
+            // screen4.SetActive(true);
             serveCurrentScreen();
         } else {
             deactivateScreenOne();
@@ -138,6 +142,7 @@ public class Jay : MonoBehaviour {
             handleScreenTwoState();
         } else if (fourthPlayer && !seventhJay) {
             deactivateScreenTwo();
+            deactivateScreenOne();
             handleScreenThreeState();
         } else {
             //
@@ -385,12 +390,10 @@ public class Jay : MonoBehaviour {
             bad.SetActive(true);
             if ((Time.time - playerResponseTime) > 2f) {
                 question.SetActive(true);
+                messageTwo.SetActive(false);
                 seventhJay = true;
                 entryPoint = false;
             }
-        }
-        else {
-            deactivateScreenThree();
         }
     }
     /*
