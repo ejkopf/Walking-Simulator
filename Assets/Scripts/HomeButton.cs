@@ -30,18 +30,19 @@ public class HomeButton : MonoBehaviour
     public GameObject enlarged;
     private CapstoneLogger logger;
 
+
     // Start is called before the first frame update
     void Start()
     {
-        CapstoneLogger logger = new CapstoneLogger(20240109, "walkingsim", "860d0f1dd48e31e2fb5898f5e1cb101d", 1);
-        string userID = logger.GetSavedUserId();
+        
+        string userID = Logger.Instance.logger.GetSavedUserId();
         if (userID is null || userID is "")
         {
-            userID = logger.GenerateUuid();
-            logger.SetSavedUserId(userID);
+            userID = Logger.Instance.logger.GenerateUuid();
+            Logger.Instance.logger.SetSavedUserId(userID);
         }
         // logger.StartNewSession(userID);
-        this.logger = logger;
+        // this.logger = logger;
     }
 
     // Update is called once per frame

@@ -33,8 +33,6 @@ public class Tutorial : MonoBehaviour
     private bool done5;
     private bool done6;
 
-    public static CapstoneLogger LOGGER;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -68,24 +66,14 @@ public class Tutorial : MonoBehaviour
             child.gameObject.SetActive(false);
         }
 
-        /* CapstoneLogger logger = new CapstoneLogger(20240109, "walkingsim", "860d0f1dd48e31e2fb5898f5e1cb101d", 1);
-        string userID = logger.GetSavedUserId();
-        if (userID is null || userID is "")
+        string userID = Logger.Instance.logger.GetSavedUserId();
+        if (userID is null || userID == "")
         {
-            userID = logger.GenerateUuid();
-            logger.SetSavedUserId(userID);
+            userID = Logger.Instance.logger.GenerateUuid();
+            Logger.Instance.logger.SetSavedUserId(userID);
         }
-        logger.StartNewSession(userID);
-        LOGGER = logger; */
-        CapstoneLogger logger = new CapstoneLogger(20240109, "walkingsim", "860d0f1dd48e31e2fb5898f5e1cb101d", 1);
-        string userID = logger.GetSavedUserId();
-        if (userID is null || userID is "")
-        {
-            userID = logger.GenerateUuid();
-            logger.SetSavedUserId(userID);
-        }
-        // logger.StartNewSession(userID);
-        LOGGER = logger;
+        Logger.Instance.logger.StartNewSession(userID);
+        Debug.Log("Successfully started a new session");
     }
 
     // Update is called once per frame
@@ -97,21 +85,15 @@ public class Tutorial : MonoBehaviour
             ColorChange(tutorialtext, 0.05f); 
         }
 
-        if (walkbutton.transform.position.z > initialposition + 1.5)
-        {
-            donewith1stinstruction = true;
-            ColorChange(tutorialtext, -0.05f);
-        }
-
         // notification
-        /* if (walkbutton.transform.position.z > initialposition + 1.5 && !donewith2ndinstruction)
+        if (walkbutton.transform.position.z > initialposition + 1.5 && !donewith2ndinstruction)
         {
             if (!donewith1stinstruction)
             {
                 donewith1stinstruction = true;
                 timesincedone = Time.time;
             }
-            // Debug.Log(Time.time + "," + timesincedone);
+            Debug.Log(Time.time + "," + timesincedone);
             if (Time.time - timesincedone < 3f)
             {
                 ColorChange(tutorialtext, -0.05f);
@@ -125,7 +107,7 @@ public class Tutorial : MonoBehaviour
                 tutorialtext.text = " Click the \"PHONE\" button to open your PHONE.";
                 ColorChange(tutorialtext, 0.05f);
             }
-        } */
+        }
 
         // opened phone
         if (homeScreen.activeInHierarchy && !donewith3rdinstruction)
