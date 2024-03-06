@@ -3,9 +3,12 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using cse481.logging;
 
 public class Iloveyou1 : MonoBehaviour
 {
+    public GameObject ilyp2;
+
     public Text notificationtext;
     public Text ily;
     public GameObject tutorialtext;
@@ -54,6 +57,8 @@ public class Iloveyou1 : MonoBehaviour
     private Vector3 slidePos3;
     private Vector3 slidePos4;
 
+    private CapstoneLogger logger;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -80,6 +85,14 @@ public class Iloveyou1 : MonoBehaviour
         messageplus2.SetActive(false);
         messageplus3.SetActive(false);
         messageplus4.SetActive(false);
+
+        logger = Logger.Instance.logger;
+        string userID = logger.GetSavedUserId();
+        if (userID is null || userID is "")
+        {
+            userID = logger.GenerateUuid();
+            logger.SetSavedUserId(userID);
+        }
     }
 
     // Update is called once per frame
@@ -93,6 +106,12 @@ public class Iloveyou1 : MonoBehaviour
         {
             if (ilystart.activeInHierarchy)
             {
+                if (!done[50])
+                {
+                    logger.LogActionWithNoLevel(36, "ilystart" + "." + logger.GetSavedUserId());
+                    done[50] = true;
+                }
+
                 response1container.SetActive(true);
                 response2container.SetActive(true);
                 response3container.SetActive(true);
@@ -106,6 +125,8 @@ public class Iloveyou1 : MonoBehaviour
                 }
                 if (response1.activeInHierarchy && !done[1])
                 {
+                    logger.LogActionWithNoLevel(37, "said:ily2" + "." + logger.GetSavedUserId());
+
                     curtime = Time.time;
                     done[1] = true;
                 }
@@ -133,8 +154,9 @@ public class Iloveyou1 : MonoBehaviour
                 }
                 if (Time.time - curtime > 4f && !option2.activeInHierarchy && done[6] && !done[2])
                 {
-                    // Debug.Log("message+2");
+                    Debug.Log("message+2");
                     messageplus2.SetActive(true);
+                    curtime = Time.time;
                     done[2] = true;
                 }
                 if (!done[2] || option2.activeInHierarchy)
@@ -144,10 +166,13 @@ public class Iloveyou1 : MonoBehaviour
 
                 if (Time.time - curtime > 15f && response2.activeInHierarchy)
                 {
+                    Debug.Log("done4");
                     notif3.SetActive(true);
                     // done[15] = true;
                     if (!done[4])
                     {
+                        logger.LogActionWithNoLevel(38, "said:forwhat" + "." + logger.GetSavedUserId());
+
                         done1time = Time.time;
                         done[4] = true;
                     }
@@ -160,8 +185,8 @@ public class Iloveyou1 : MonoBehaviour
                 }
 
                 // pt 2
-                Debug.Log(" done15? " + done[15]);
-                if (Time.time - done1time > 0f && done[15] || done[5]) // should actually = 120f ish
+                // Debug.Log(" done15? " + done[15]);
+                if ((ilyp2.activeInHierarchy && done[15]) || done[5]) // should actually = 120f ish
                 {
                     if (!backButton.activeInHierarchy && !done[12])
                     {
@@ -224,6 +249,8 @@ public class Iloveyou1 : MonoBehaviour
                     {
                         if (!done[7])
                         {
+                            logger.LogActionWithNoLevel(39, "said:whatswrongwithyou" + "." + logger.GetSavedUserId());
+
                             done1time = Time.time;
                             done[7] = true;
                         }
@@ -287,6 +314,18 @@ public class Iloveyou1 : MonoBehaviour
                     {
                         response4container.SetActive(true);
                         response4.SetActive(true);
+
+                        if (!done[60])
+                        {
+                            if (response4.transform.GetChild(0).gameObject.activeInHierarchy)
+                            {
+                                logger.LogActionWithNoLevel(40, "said:maybeiwill" + "." + logger.GetSavedUserId());
+                            } else if (response4.transform.GetChild(1).gameObject.activeInHierarchy)
+                            {
+                                logger.LogActionWithNoLevel(41, "said:emoji" + "." + logger.GetSavedUserId());
+                            }
+                            done[60] = true;
+                        }
                     }
                     
                 }
@@ -304,26 +343,6 @@ public class Iloveyou1 : MonoBehaviour
                 response4.SetActive(false);
             }
 
-            /* if (Time.time - curtime > 15f && done[3])
-            {
-                Debug.Log(!done[15] + " : " + !backButton.activeInHierarchy);
-                if (!done[15] && !backButton.activeInHierarchy)
-                {
-                    Debug.Log("vrvrvvrvvrvvrvvr");
-                    done1time = Time.time;
-                    done[15] = true;
-                }
-            } */
-            /* if (!backButton.activeInHierarchy && !done[12])
-            {
-                Debug.Log("done13");
-                if (!done[13])
-                {
-                    done[13] = true;
-                }
-                ColorChange(notificationtext, 0.1f);
-                UpdateSlidePos();
-            } */
             if (phoneBack.activeInHierarchy && done[15] && !done[12])
             {
                 Debug.Log("done12");

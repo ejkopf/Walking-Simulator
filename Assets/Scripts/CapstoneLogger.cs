@@ -370,6 +370,7 @@ namespace cse481.logging {
                 svid = 2,
                 sessionid = this.currentSessionId
             };
+			// Debug.Log("nolevel");
 			Dictionary<string, string> requestParams = PrepareParams (actionNoLevelData);
 			UnityWebRequest actionNoLevelRequest = PrepareRequest("loggingactionnoquest/set/", requestParams);
 			actionNoLevelRequest.SendWebRequest();

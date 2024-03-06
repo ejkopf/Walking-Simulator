@@ -10,23 +10,22 @@ public class PhoneButton : MonoBehaviour // , IPointerClickHandler
     public GameObject button2;
     public GameObject back;
     public GameObject phoneback;
+
     private CapstoneLogger logger;
-    // public GameObject
 
     // Start is called before the first frame update
     void Start()
     {
-        back.SetActive(false);
-        phoneback.SetActive(false);
-        CapstoneLogger logger = new CapstoneLogger(20240109, "walkingsim", "860d0f1dd48e31e2fb5898f5e1cb101d", 1);
+        logger = Logger.Instance.logger;
         string userID = logger.GetSavedUserId();
         if (userID is null || userID is "")
         {
             userID = logger.GenerateUuid();
             logger.SetSavedUserId(userID);
         }
-        // logger.StartNewSession(userID);
-        this.logger = logger;
+
+        back.SetActive(false);
+        phoneback.SetActive(false);
     }
 
     // Update is called once per frame
@@ -36,9 +35,8 @@ public class PhoneButton : MonoBehaviour // , IPointerClickHandler
 
     void OnMouseDown()
     {
-        // logger.LogActionWithNoLevel(5, "phone button");
-        Debug.Log("Click!" + transform.gameObject.tag);
-        Debug.Log(back.tag);
+        logger.LogActionWithNoLevel(5, "phone" + "." + logger.GetSavedUserId());
+
         button1.SetActive(false);
         button2.SetActive(false);
         back.SetActive(true);

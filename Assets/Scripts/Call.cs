@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using cse481.logging;
 
 public class Call : MonoBehaviour
 {
@@ -13,10 +14,31 @@ public class Call : MonoBehaviour
 
     private bool callStarted;
     private float timeStarted;
+    private bool callEnded;
+
+    public GameObject left;
+    public GameObject right;
+    public GameObject sunset;
+    public GameObject maincamera;
+    public GameObject phoneFrame;
+    public GameObject buttons;
+    public GameObject back;
+
+    private bool[] done = new bool[100];
+
+    private CapstoneLogger logger;
 
     // Start is called before the first frame update
     void Start()
     {
+        logger = Logger.Instance.logger;
+        string userID = logger.GetSavedUserId();
+        if (userID is null || userID is "")
+        {
+            userID = logger.GenerateUuid();
+            logger.SetSavedUserId(userID);
+        }
+
         background = callContainer.transform.GetChild(0).gameObject;
         background.SetActive(true);
         page1 = callContainer.transform.GetChild(1).gameObject;
@@ -63,6 +85,12 @@ public class Call : MonoBehaviour
                             // Debug.Log(page.GetChild(i).GetChild(0).GetComponentInChildren<Text>().Text);
                             Debug.Log(text.text);
                             ColorChange(page.GetChild(i).GetChild(0).GetComponentInChildren<Text>(), 0.05f);
+
+                            if (!done[i])
+                            {
+                                logger.LogActionWithNoLevel(12, "incrementcall" + "." + logger.GetSavedUserId());
+                                done[i] = true;
+                            }
                         } else
                         {
                             ColorChange(page.GetChild(i).GetChild(0).GetComponentInChildren<Text>(), -page.GetChild(i).GetChild(0).GetComponentInChildren<Text>().color.a);
@@ -77,11 +105,29 @@ public class Call : MonoBehaviour
                         } else
                         {
                             callContainer.SetActive(false);
+                            if (callContainer.tag == "end")
+                            {
+                                // turn around and face sun
+                                sunset.SetActive(true);
+                                left.SetActive(false);
+                                phoneFrame.SetActive(false);
+                                buttons.SetActive(false);
+                                right.SetActive(false);
+                                back.SetActive(false);
+                                callEnded = true;
+                                logger.LogActionWithNoLevel(13, "finished:game" + "." + logger.GetSavedUserId());
+                            }
                         }
                     }
                 }
             }
             
+        } else if (callEnded)
+        {
+            if (maincamera.transform.eulerAngles.y <= 180f)
+            {
+                maincamera.transform.eulerAngles = new Vector3(maincamera.transform.eulerAngles.x, maincamera.transform.eulerAngles.y + 0.1f, maincamera.transform.eulerAngles.z);
+            }
         }
     }
 

@@ -3,9 +3,13 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using cse481.logging;
 
 public class Roomie : MonoBehaviour
 {
+    public GameObject roomie;
+    public GameObject roomiep2;
+
     public Text notificationtext;
     public GameObject tutorialtext;
 
@@ -39,9 +43,19 @@ public class Roomie : MonoBehaviour
     private float timetutorialend;
     private float time;
 
+    private CapstoneLogger logger;
+
     // Start is called before the first frame update
     void Start()
     {
+        logger = Logger.Instance.logger;
+        string userID = logger.GetSavedUserId();
+        if (userID is null || userID is "")
+        {
+            userID = logger.GenerateUuid();
+            logger.SetSavedUserId(userID);
+        }
+
         pg2.transform.GetChild(0).gameObject.SetActive(false);
         pg2.transform.GetChild(1).gameObject.SetActive(false);
         pg2.transform.GetChild(2).gameObject.SetActive(false);
@@ -86,13 +100,18 @@ public class Roomie : MonoBehaviour
         if (!tutorialtext.activeInHierarchy)
         {
             tutorialcomplete = true;
+
+            if (!bools[51])
+            {
+                logger.LogActionWithNoLevel(35, "finished:tutorial" + "." + logger.GetSavedUserId());
+                bools[51] = true;
+            }
         }
-        if (tutorialcomplete)
+        if (tutorialcomplete && roomie.activeInHierarchy)
         {
             // Debug.Log("startRoomie");
             if (!donewith1stinstruction)
             {
-                
                 donewith1stinstruction = true;
                 timetutorialend = Time.time;
             }
@@ -136,9 +155,7 @@ public class Roomie : MonoBehaviour
                 }
                 pg1.SetActive(false);
                 roomieStart.transform.GetChild(1).gameObject.SetActive(false);
-                // Debug.Log("here");
                 pg2.transform.GetChild(0).gameObject.SetActive(true);
-                // Debug.Log(Time.time + " - " + time);
                 if (Time.time - time > 2f)
                 {
                     pg2.transform.GetChild(1).gameObject.SetActive(true);
@@ -193,7 +210,6 @@ public class Roomie : MonoBehaviour
                     rss.SetActive(true);
                     if (!done5)
                     {
-
                         done5 = true;
                         rss.transform.GetChild(0).gameObject.SetActive(false);
                         rss.transform.GetChild(1).gameObject.SetActive(false);
@@ -230,6 +246,23 @@ public class Roomie : MonoBehaviour
                 }
             }
 
+            if (response1.activeInHierarchy)
+            {
+                if (!bools[52])
+                {
+                    logger.LogActionWithNoLevel(33, "said:wonthappenagain" + "." + logger.GetSavedUserId());
+                    bools[52] = true;
+                }
+            }
+            else if (response2.activeInHierarchy)
+            {
+                if (!bools[53])
+                {
+                    logger.LogActionWithNoLevel(34, "said:sry" + "." + logger.GetSavedUserId());
+                    bools[53] = true;
+                }
+            }
+
             if (!roomieStart.activeInHierarchy)
             {
                 pg1.transform.GetChild(0).gameObject.SetActive(false);
@@ -246,7 +279,7 @@ public class Roomie : MonoBehaviour
         }
 
         // pt 2
-        if (Time.time - timetutorialend > 0f && done5)
+        if (roomiep2.activeInHierarchy && done5)
         {
             // Debug.Log("start p2");
             // Debug.Log(done7 + " , " + !backButton.activeInHierarchy);

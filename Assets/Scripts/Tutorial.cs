@@ -33,11 +33,21 @@ public class Tutorial : MonoBehaviour
     private bool done5;
     private bool done6;
 
-    public static CapstoneLogger LOGGER;
+    private bool[] done = new bool[100];
+
+    private CapstoneLogger logger;
 
     // Start is called before the first frame update
     void Start()
     {
+        logger = Logger.Instance.logger;
+        string userID = logger.GetSavedUserId();
+        if (userID is null || userID is "")
+        {
+            userID = logger.GenerateUuid();
+            logger.SetSavedUserId(userID);
+        }
+
         Debug.Log("start");
         // initialize text
         // Color tempcolor = tutorialtext.GetComponent<MeshRenderer>().material.color;
@@ -67,25 +77,6 @@ public class Tutorial : MonoBehaviour
         {
             child.gameObject.SetActive(false);
         }
-
-        /* CapstoneLogger logger = new CapstoneLogger(20240109, "walkingsim", "860d0f1dd48e31e2fb5898f5e1cb101d", 1);
-        string userID = logger.GetSavedUserId();
-        if (userID is null || userID is "")
-        {
-            userID = logger.GenerateUuid();
-            logger.SetSavedUserId(userID);
-        }
-        logger.StartNewSession(userID);
-        LOGGER = logger; */
-        CapstoneLogger logger = new CapstoneLogger(20240109, "walkingsim", "860d0f1dd48e31e2fb5898f5e1cb101d", 1);
-        string userID = logger.GetSavedUserId();
-        if (userID is null || userID is "")
-        {
-            userID = logger.GenerateUuid();
-            logger.SetSavedUserId(userID);
-        }
-        // logger.StartNewSession(userID);
-        LOGGER = logger;
     }
 
     // Update is called once per frame
@@ -95,12 +86,6 @@ public class Tutorial : MonoBehaviour
         if (Time.time > 2f && walkbutton.activeInHierarchy && !donewith1stinstruction) 
         {
             ColorChange(tutorialtext, 0.05f); 
-        }
-
-        if (walkbutton.transform.position.z > initialposition + 1.5)
-        {
-            donewith1stinstruction = true;
-            ColorChange(tutorialtext, -0.05f);
         }
 
         // notification
@@ -152,7 +137,6 @@ public class Tutorial : MonoBehaviour
             {
                 ColorChange(tutorialtext, -1f);
                 donewith3rdinstruction = true;
-
             }
 
             homeButtonClick.SetActive(false);

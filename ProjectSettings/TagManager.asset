@@ -13,6 +13,7 @@ TagManager:
   - Notes
   - Photos
   - res1
+  - end
   layers:
   - Default
   - TransparentFX

@@ -17,6 +17,7 @@ public class Walk : MonoBehaviour
     public GameObject container;
     public GameObject call1;
     public GameObject call2;
+    public GameObject sunset;
 
     public Text notificationtext;
     public Text tutorialtext;
@@ -30,19 +31,10 @@ public class Walk : MonoBehaviour
     private float time;
 
     private CapstoneLogger logger;
+
     // Start is called before the first frame update
     void Start()
     {
-        logger = new CapstoneLogger(20240109, "walkingsim", "860d0f1dd48e31e2fb5898f5e1cb101d", 1);
-        string userID = logger.GetSavedUserId();
-        if (userID is null || userID is "")
-        {
-            userID = logger.GenerateUuid();
-            logger.SetSavedUserId(userID);
-        }
-        logger.StartNewSession(userID);
-        // this.logger = logger;
-
         Color tempcolor = fadeToBlack.GetComponent<MeshRenderer>().material.color;
         tempcolor.a -= tempcolor.a;
         fadeToBlack.GetComponent<MeshRenderer>().material.color = tempcolor;
@@ -66,14 +58,27 @@ public class Walk : MonoBehaviour
         SetStartPos(container);
         SetStartPos(call1);
         SetStartPos(call2);
+        SetStartPos(sunset);
 
         tutorialtext.transform.position = new Vector3(tutorialtext.transform.position.x, tutorialtext.transform.position.y, tutorialtext.transform.position.z + 300f);
         notificationtext.transform.position = new Vector3(notificationtext.transform.position.x, notificationtext.transform.position.y, notificationtext.transform.position.z + 300f);
+
+        logger = Logger.Instance.logger;
+        string userID = logger.GetSavedUserId();
+        if (userID is null || userID is "")
+        {
+            userID = logger.GenerateUuid();
+            logger.SetSavedUserId(userID);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (call2.activeInHierarchy)
+        {
+            call1.SetActive(false);
+        }
         steps.text = stepcount.ToString();
         if (walkButton.transform.position.z > 592f)
         {
@@ -105,7 +110,7 @@ public class Walk : MonoBehaviour
 
     void OnMouseDown()
     {
-        logger.LogActionWithNoLevel(0, "walk" + logger.GetSavedUserId());
+        logger.LogActionWithNoLevel(0, "walk" + "." + logger.GetSavedUserId());
 
         stepcount++;
 
@@ -119,6 +124,7 @@ public class Walk : MonoBehaviour
         UpdatePosition(container);
         UpdatePosition(call1);
         UpdatePosition(call2);
+        UpdatePosition(sunset);
 
         if (stepcount >= 0)
         {

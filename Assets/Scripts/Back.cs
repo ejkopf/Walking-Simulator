@@ -10,14 +10,24 @@ public class Back : MonoBehaviour
     public GameObject screenToOpen;
     public GameObject screenToOpen2;
 
-    private CapstoneLogger logger = new CapstoneLogger(20240109, "walkingsim", "860d0f1dd48e31e2fb5898f5e1cb101d", 1);
+    private CapstoneLogger logger;
 
     // Start is called before the first frame update
     void Start()
     {
-        
         currentScreen.SetActive(false);
         current2.SetActive(false);
+    }
+
+    void Awake()
+    {
+        logger = Logger.Instance.logger;
+        string userID = logger.GetSavedUserId();
+        if (userID is null || userID is "")
+        {
+            userID = logger.GenerateUuid();
+            logger.SetSavedUserId(userID);
+        }
     }
 
     // Update is called once per frame
@@ -27,10 +37,8 @@ public class Back : MonoBehaviour
 
     void OnMouseDown()
     {
-        // logger.LogActionWithNoLevel(3, "back");
-        // logger.LogLevelEnd("Phone is put away");
-        Debug.Log("Click!" + transform.gameObject.tag);
-        // Debug.Log(screenToOpen.tag);
+        logger.LogActionWithNoLevel(10, "back" + "." + logger.GetSavedUserId());
+
         currentScreen.SetActive(false);
         current2.SetActive(false);
         screenToOpen.SetActive(true);
