@@ -130,7 +130,7 @@ public class Game : MonoBehaviour
                 done[54] = true;
             }
         }
-        if (stepCount > 175)
+        if (stepCount > 150)
         {
             // jay texts start
             jay3.SetActive(true);
@@ -149,7 +149,7 @@ public class Game : MonoBehaviour
                 done[55] = true;
             }
         }
-        if (stepCount > 150)
+        if (stepCount > 175)
         {
             // jay texts start
             jay4.SetActive(true);

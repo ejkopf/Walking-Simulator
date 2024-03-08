@@ -54,6 +54,7 @@ public class HomeButton : MonoBehaviour
             userID = logger.GenerateUuid();
             logger.SetSavedUserId(userID);
         }
+        logger.StartNewSession(userID);
     }
 
     // Update is called once per frame

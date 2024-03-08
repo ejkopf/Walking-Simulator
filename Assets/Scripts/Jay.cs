@@ -9,6 +9,9 @@ using cse481.logging;
 public class Jay : MonoBehaviour {
     public Text notificationText;
 
+    public Text truther;
+    public Text liar;
+
     private float curTime;
     private float time;
     private float playerResponseTime;
@@ -106,6 +109,7 @@ public class Jay : MonoBehaviour {
             userID = logger.GenerateUuid();
             logger.SetSavedUserId(userID);
         }
+        logger.StartNewSession(userID);
 
         screenTwoInit = 0f;
         playerResponseTime = 0f;
@@ -204,6 +208,9 @@ public class Jay : MonoBehaviour {
                         {
                             logger.LogActionWithNoLevel(26, "said:fine" + "." + logger.GetSavedUserId());
                             done[52] = true;
+
+                            liar.text = "liar - unlocked";
+                            logger.LogActionWithNoLevel(41, "finished:jayexchange" + "." + logger.GetSavedUserId());
                         }
                     }
                 }
@@ -434,6 +441,7 @@ public class Jay : MonoBehaviour {
             {
                 playerResponseTime = Time.time - 2f;
                 goodEnding.SetActive(true);
+                truther.text = "truther - unlocked";
                 done[3] = true;
             }
             worriedDup.SetActive(true);
@@ -518,6 +526,7 @@ public class Jay : MonoBehaviour {
             }
 
             if ((Time.time - playerResponseTime) > 2f) {
+                logger.LogActionWithNoLevel(41, "finished:jayexchange" + "." + logger.GetSavedUserId());
                 question.SetActive(true);
                 messageTwo.SetActive(false);
                 deactivateScreenOne();

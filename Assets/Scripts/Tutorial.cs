@@ -23,8 +23,10 @@ public class Tutorial : MonoBehaviour
     public GameObject tutorialTextContainer;
 
     private float time;
+    private float curtime;
     private float timesincedone;
     private float initialposition;
+    private float ttinitpos;
 
     private bool donewith1stinstruction;
     private bool donewith2ndinstruction;
@@ -47,6 +49,7 @@ public class Tutorial : MonoBehaviour
             userID = logger.GenerateUuid();
             logger.SetSavedUserId(userID);
         }
+        logger.StartNewSession(userID);
 
         Debug.Log("start");
         // initialize text
@@ -71,6 +74,7 @@ public class Tutorial : MonoBehaviour
 
         timesincedone = 0f;
         initialposition = walkbutton.transform.position.z + 300f;
+        ttinitpos = tutorialtext.transform.position.y;
 
         unblockmestart.SetActive(false);
         foreach (Transform child in unblockmes.transform)
@@ -83,7 +87,7 @@ public class Tutorial : MonoBehaviour
     void Update()
     {
         // fade in walk instruction
-        if (Time.time > 2f && walkbutton.activeInHierarchy && !donewith1stinstruction) 
+        if (Time.time > 0.5f && walkbutton.activeInHierarchy && !donewith1stinstruction) 
         {
             ColorChange(tutorialtext, 0.05f); 
         }
@@ -140,11 +144,11 @@ public class Tutorial : MonoBehaviour
             }
 
             homeButtonClick.SetActive(false);
-            tutorialtext.text = " Click the first number listed; this is your most recent message.";
+            tutorialtext.text = " Click the first number listed.";
             ColorChange(tutorialtext, 0.05f);
         }
 
-        if (tutorialtext.text == " Click the first number listed; this is your most recent message." && homeScreen.activeInHierarchy && !donewith4thinstruction)
+        if (tutorialtext.text == " Click the first number listed." && homeScreen.activeInHierarchy && !donewith4thinstruction)
         {
             homeScreen.SetActive(false);
             messageApp.SetActive(true);
@@ -207,31 +211,86 @@ public class Tutorial : MonoBehaviour
             done5 = true;
         }
 
-        if (response.activeInHierarchy && done5)
+        if (response.activeInHierarchy && done5 && !done[7])
         {
             homeButtonClick.SetActive(true);
             done6 = true;
             // backButton.SetActive(true);
 
-            if (Time.time - time < 20f)
+            /* if (Time.time - time < 1f)
             {
-                // Debug.Log(Time.time - time + "< 20f");
+                Debug.Log("wrong");
+                ColorChange(tutorialtext, -0.05f);
+            } */
+        }
+
+        /*if (done6 && homeScreen.activeInHierarchy && !done[8]) {
+            
+            tutorialtext.text = "You can explore other apps!";
+            ColorChange(tutorialtext, 0.05f);
+            done[7] = true;
+        }*/
+
+        if (done6 && walkbutton.activeInHierarchy)
+        {
+            if (!done[8])
+            {
+                curtime = Time.time;
+                done[8] = true;
+            }
+            tutorialtext.transform.position = new Vector3(tutorialtext.transform.position.x, ttinitpos, tutorialtext.transform.position.z);
+            if (Time.time - curtime < 1f)
+            {
+                ColorChange(tutorialtext, -tutorialtext.color.a);
+            }
+            if (Time.time - curtime > 1f && Time.time - curtime < 3f)
+            {
+                tutorialtext.text = "The more time you spend walking, the more messages you get";
+                ColorChange(tutorialtext, 0.05f);
+            }
+            if (Time.time - curtime < 4f && Time.time - curtime > 3f)
+            {
                 ColorChange(tutorialtext, -0.05f);
             }
+            if (Time.time - curtime < 7f && Time.time - curtime > 4f)
+            {
+                tutorialtext.text = "You can view your steps and achievements in the health app";
+                ColorChange(tutorialtext, 0.05f);
+            }
+            if (Time.time - curtime < 8f && Time.time - curtime > 7f)
+            {
+                ColorChange(tutorialtext, -0.05f);
+            }
+            /* if (Time.time - curtime > 8f)
+            {
+                tutorialtext.text = "You can view your steps and achievements in the health app";
+                ColorChange(tutorialtext, 0.05f);
+            }
+            if (Time.time - curtime > 11f && Time.time - curtime < 13f)
+            {
+                ColorChange(tutorialtext, -0.05f);
+            } */
+            if (Time.time - curtime > 8f && Time.time - curtime < 9.5f)
+            {
+                tutorialtext.text = "Tutorial complete!";
+                ColorChange(tutorialtext, 0.05f);
+            }
+            if (Time.time - curtime > 9.5f)
+            {
+                ColorChange(tutorialtext, -0.05f);
+            }
+            if (Time.time - curtime > 11f)
+            {
+                tutorialTextContainer.SetActive(false);
+            }
         }
-
-        if ((done6 && homeScreen.activeInHierarchy) || (done6 && walkbutton.activeInHierarchy)) {
-            tutorialTextContainer.SetActive(false);
-        }
-
-        if (Time.time - time > 20f)
+        else if (done6 && !walkbutton.activeInHierarchy)
         {
-            float g = Time.time - time;
-            // Debug.Log(g + "< 20f");
-            tutorialTextContainer.SetActive(false);
+            ColorChange(tutorialtext, -tutorialtext.color.a);
+            done[9] = true;
         }
 
-        if (!unblockmestart.activeInHierarchy) 
+            if (!unblockmestart.activeInHierarchy) 
         {
             unblockmes.transform.GetChild(0).gameObject.SetActive(false);
             unblockmes.transform.GetChild(1).gameObject.SetActive(false);

@@ -23,6 +23,7 @@ public class PhoneButton : MonoBehaviour // , IPointerClickHandler
             userID = logger.GenerateUuid();
             logger.SetSavedUserId(userID);
         }
+        logger.StartNewSession(userID);
 
         back.SetActive(false);
         phoneback.SetActive(false);
