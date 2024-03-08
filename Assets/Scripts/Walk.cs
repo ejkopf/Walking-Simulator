@@ -130,7 +130,7 @@ public class Walk : MonoBehaviour
         {
             if (!end)
             {
-                // logger.LogLevelEnd("end");
+                logger.LogActionWithNoLevel(39, "hitbycar" + "." + logger.GetSavedUserId());
                 end = true;
                 time = Time.time;
             }
