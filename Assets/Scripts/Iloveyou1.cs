@@ -196,7 +196,7 @@ public class Iloveyou1 : MonoBehaviour
                             done[13] = true;
                         }
                         ColorChange(notificationtext, 0.1f);
-                        UpdateSlidePos(slide3);
+                        // UpdateSlidePos(slide3);
                     } else
                     {
                         ColorChange(notificationtext, -notificationtext.color.a);
@@ -324,6 +324,7 @@ public class Iloveyou1 : MonoBehaviour
                             {
                                 logger.LogActionWithNoLevel(41, "said:emoji" + "." + logger.GetSavedUserId());
                             }
+                            logger.LogActionWithNoLevel(41, "finished:ilyexchange" + "." + logger.GetSavedUserId());
                             done[60] = true;
                         }
                     }

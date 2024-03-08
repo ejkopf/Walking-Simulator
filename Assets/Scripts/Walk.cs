@@ -24,6 +24,13 @@ public class Walk : MonoBehaviour
     public Text youDied;
     public Text steps;
 
+    public Text s25;
+    public Text s50;
+    public Text s100;
+    public Text s200;
+    public Text s300;
+    public Text s387;
+
     // public Text steps;
 
     private float stepcount;
@@ -70,6 +77,7 @@ public class Walk : MonoBehaviour
             userID = logger.GenerateUuid();
             logger.SetSavedUserId(userID);
         }
+        logger.StartNewSession(userID);
     }
 
     // Update is called once per frame
@@ -79,7 +87,34 @@ public class Walk : MonoBehaviour
         {
             call1.SetActive(false);
         }
+
         steps.text = stepcount.ToString();
+
+        if (stepcount >= 25f)
+        {
+            s25.text = "25 steps - unlocked";
+        }
+        if (stepcount >= 50f)
+        {
+            s50.text = "50 steps - unlocked";
+        }
+        if (stepcount >= 100f)
+        {
+            s100.text = "100 steps - unlocked";
+        }
+        if (stepcount >= 200f)
+        {
+            s200.text = "200 steps - unlocked";
+        }
+        if (stepcount >= 300f)
+        {
+            s300.text = "300 steps - unlocked";
+        }
+        if (stepcount >= 300f)
+        {
+            s387.text = "387 steps - unlocked";
+        }
+
         if (walkButton.transform.position.z > 592f)
         {
             fadeToBlack.SetActive(true);

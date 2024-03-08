@@ -38,6 +38,7 @@ public class Call : MonoBehaviour
             userID = logger.GenerateUuid();
             logger.SetSavedUserId(userID);
         }
+        logger.StartNewSession(userID);
 
         background = callContainer.transform.GetChild(0).gameObject;
         background.SetActive(true);
@@ -63,6 +64,13 @@ public class Call : MonoBehaviour
             if (!callStarted)
             {
                 timeStarted = Time.time;
+                if (callContainer.tag == "end")
+                {
+                    logger.LogActionWithNoLevel(13, "call2started" + "." + logger.GetSavedUserId());
+                } else
+                {
+                    logger.LogActionWithNoLevel(13, "call1started" + "." + logger.GetSavedUserId());
+                }
                 callStarted = true;
             }
             bool newpage = false;
@@ -79,7 +87,7 @@ public class Call : MonoBehaviour
                     for (int i = 0; i < page.childCount; i++) // fade in all children
                     {
                         // Debug.Log(Time.time + " - " + timeStarted + " > " + 3f * i);
-                        if (Time.time - timeStarted > 3f * i)
+                        if (Time.time - timeStarted > 2.5f * i)
                         {
                             Text text = page.GetChild(i).GetChild(0).GetComponentInChildren(typeof(Text)) as Text;
                             // Debug.Log(page.GetChild(i).GetChild(0).GetComponentInChildren<Text>().Text);
@@ -96,7 +104,7 @@ public class Call : MonoBehaviour
                             ColorChange(page.GetChild(i).GetChild(0).GetComponentInChildren<Text>(), -page.GetChild(i).GetChild(0).GetComponentInChildren<Text>().color.a);
                         }
                     }
-                    if (Time.time - timeStarted > 4f * (page.childCount + 1f))
+                    if (Time.time - timeStarted > 3f * (page.childCount + 1f))
                     {
                         page.gameObject.SetActive(false);
                         if (page != callContainer.transform.GetChild(callContainer.transform.childCount - 1))
@@ -124,6 +132,14 @@ public class Call : MonoBehaviour
             
         } else if (callEnded)
         {
+            if (callContainer.tag == "end")
+            {
+                logger.LogActionWithNoLevel(13, "finished:call2" + "." + logger.GetSavedUserId());
+            }
+            else
+            {
+                logger.LogActionWithNoLevel(13, "finished:call1" + "." + logger.GetSavedUserId());
+            }
             if (maincamera.transform.eulerAngles.y <= 180f)
             {
                 maincamera.transform.eulerAngles = new Vector3(maincamera.transform.eulerAngles.x, maincamera.transform.eulerAngles.y + 0.1f, maincamera.transform.eulerAngles.z);

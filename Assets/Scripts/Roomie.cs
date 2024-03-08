@@ -55,6 +55,7 @@ public class Roomie : MonoBehaviour
             userID = logger.GenerateUuid();
             logger.SetSavedUserId(userID);
         }
+        logger.StartNewSession(userID);
 
         pg2.transform.GetChild(0).gameObject.SetActive(false);
         pg2.transform.GetChild(1).gameObject.SetActive(false);
@@ -195,7 +196,7 @@ public class Roomie : MonoBehaviour
                             slide1.transform.position = slide2.transform.position;
                             slide2.transform.position = slide3.transform.position;
                             slide3.transform.position = slide1pos;
-                        }
+                        } 
                         bools[3] = true;
                     }
                 }
@@ -341,6 +342,7 @@ public class Roomie : MonoBehaviour
                 {
                     notifs.transform.GetChild(2).gameObject.SetActive(true);
                     bools[1] = true;
+                    logger.LogActionWithNoLevel(41, "finished:roomieexchange" + "." + logger.GetSavedUserId());
                 }
 
                 if (bools[1]) {

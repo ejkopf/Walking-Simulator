@@ -16,15 +16,15 @@ public class Open : MonoBehaviour
         {
             current.SetActive(false);
         }
-        CapstoneLogger logger = new CapstoneLogger(20240109, "walkingsim", "860d0f1dd48e31e2fb5898f5e1cb101d", 1);
+
+        logger = Logger.Instance.logger;
         string userID = logger.GetSavedUserId();
         if (userID is null || userID is "")
         {
             userID = logger.GenerateUuid();
             logger.SetSavedUserId(userID);
         }
-        // logger.StartNewSession(userID);
-        this.logger = logger;
+        logger.StartNewSession(userID);
     }
 
     // Update is called once per frame
@@ -34,10 +34,6 @@ public class Open : MonoBehaviour
 
     void OnMouseDown()
     {
-        // logger.LogActionWithNoLevel(4, transform.gameObject.tag);
-        // logger.LogLevelStart(0, "Phone");
-        Debug.Log("Click!" + transform.gameObject.tag);
-        // Debug.Log(screenToOpen.tag);
         current.SetActive(false);
         messages.SetActive(true);
     }
